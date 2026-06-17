@@ -6,8 +6,7 @@ const STORY = [
   { from: 0.00, to: 0.19, stage: '01', heading: "Every student's story", highlight: "starts here.", body: null },
   { from: 0.19, to: 0.40, stage: '02', heading: "The most important", highlight: "decision of your life.", body: null },
   { from: 0.40, to: 0.50, stage: '03', heading: "Made with the", highlight: "wrong information.", body: "Counsellors with conflicts. Seniors who ghosted. Google answers from 2019." },
-  { from: 0.50, to: 0.75, stage: '04', heading: "You reached out.", highlight: "Nobody answered.", body: null },
-  { from: 0.75, to: 0.90, stage: '05', heading: "Until", highlight: "now.", body: "ogsenior connects you with verified peers who've been there — before you choose your college, branch, or career." },
+  { from: 0.50, to: 0.75, stage: '04', heading: "You reached out.", highlight: "Nobody answered.", body: null }
 ]
 
 export function StoryPanel({ scrollT }) {
@@ -20,11 +19,18 @@ export function StoryPanel({ scrollT }) {
   const ty = lerp(32, 0, easeOut3(fadeIn))
 
   return (
+    // Outer wrapper: pinned to bottom 0, flex column so content stacks from bottom upward
     <div style={{
-      position: 'absolute', left: 0, right: 0, bottom: '11%',
-      display: 'flex', flexDirection: 'column', alignItems: 'center',
-      zIndex: 10, pointerEvents: 'none',
+      position: 'absolute', left: 0, right: 0,
+      // Place text in the lower third, above the shadow zone (shadow is at y=-2.1 in 3D = ~bottom 20% of screen)
+      bottom: 0,
+      height: '38%',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      zIndex: 20, pointerEvents: 'none',
       opacity: op, transform: `translateY(${ty}px)`,
+      // Frosted cream backdrop ensures text is always legible above the 3D shadow
+      background: 'linear-gradient(to top, rgba(245,240,232,0.96) 0%, rgba(245,240,232,0.80) 60%, transparent 100%)',
+      paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
     }}>
       <div style={{
         fontFamily: 'DM Sans,sans-serif', fontSize: 10.5, fontWeight: 600,
@@ -51,7 +57,7 @@ export function StoryPanel({ scrollT }) {
         fontWeight: 800, lineHeight: 1.15,
         background: 'linear-gradient(110deg,#B45309 0%,#D97706 60%)',
         WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-        textAlign: 'center', margin: '0 0 18px',
+        textAlign: 'center', margin: '0 0 10px',
         letterSpacing: '-0.025em',
       }}>
         {active.highlight}
@@ -61,8 +67,8 @@ export function StoryPanel({ scrollT }) {
         <p style={{
           fontFamily: 'DM Sans,sans-serif',
           fontSize: 'clamp(13px,1.5vw,16px)',
-          color: 'rgba(60,40,20,0.55)',
-          textAlign: 'center', maxWidth: 440,
+          color: 'rgba(60,40,20,0.65)',
+          textAlign: 'center', maxWidth: 400, padding: '0 24px',
           lineHeight: 1.65, margin: 0,
         }}>
           {active.body}
@@ -73,13 +79,14 @@ export function StoryPanel({ scrollT }) {
 }
 
 export function BookOverlay({ scrollT }) {
-  const raw = clamp((scrollT - 0.43) / 0.10, 0, 1) * clamp((0.57 - scrollT) / 0.06, 0, 1)
+  // Synchronized to appear exactly with Stage 3 (from: 0.40)
+  const raw = clamp((scrollT - 0.40) / 0.05, 0, 1) * clamp((0.55 - scrollT) / 0.06, 0, 1)
   const op = easeOut3(raw)
   if (op < 0.01) return null
 
   return (
     <div style={{
-      position: 'absolute', top: '50%', left: '50%',
+      position: 'absolute', top: '40%', left: '50%',
       transform: `translate(-40%, -50%) scale(${lerp(0.90, 1, easeOut3(raw))})`,
       opacity: op, zIndex: 8, pointerEvents: 'none', textAlign: 'left',
       width: 'clamp(130px,18vw,210px)',
@@ -132,7 +139,7 @@ export function ChatOverlay({ scrollT }) {
 
   return (
     <div style={{
-      position: 'absolute', top: '50%', left: '50%',
+      position: 'absolute', top: '40%', left: '50%',
       transform: 'translate(-50%, -50%)',
       opacity: op, zIndex: 8, pointerEvents: 'none',
       display: 'flex', flexDirection: 'column', gap: 8,
@@ -196,7 +203,7 @@ export function StageDots({ scrollT }) {
   const idx = STORY.findIndex(s => scrollT >= s.from && scrollT < s.to)
   return (
     <div style={{
-      position: 'absolute', right: 24, top: '50%', transform: 'translateY(-50%)',
+      position: 'absolute', right: 24, top: '40%', transform: 'translateY(-50%)',
       display: 'flex', flexDirection: 'column', gap: 8, zIndex: 10, pointerEvents: 'none',
     }}>
       {STORY.map((_, i) => (
@@ -240,23 +247,25 @@ export function ScrollHint({ scrollT }) {
 }
 
 export function HeroCTA({ scrollT, go }) {
-  const op = easeOut3(clamp((scrollT - 0.90) / 0.07, 0, 1))
+  const op = easeOut3(clamp((scrollT - 0.75) / 0.15, 0, 1))
   if (op < 0.01) return null
 
   return (
     <>
       <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: '65%',
-        background: 'linear-gradient(to top, #F5F0E8 30%, rgba(245,240,232,0.75) 65%, transparent)',
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: '100%',
+        background: 'linear-gradient(to top, #F5F0E8 55%, rgba(245,240,232,0.85) 75%, transparent)',
         zIndex: 11, pointerEvents: 'none', opacity: op,
       }} />
 
       <div style={{
-        position: 'absolute', bottom: '4%', left: 0, right: 0,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16,
+        position: 'absolute', bottom: 0, left: 0, right: 0,
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14,
         zIndex: 15, opacity: op,
         transform: `translateY(${lerp(24, 0, op)}px)`,
         pointerEvents: op > 0.6 ? 'auto' : 'none',
+        paddingBottom: 'max(24px, env(safe-area-inset-bottom))',
+        paddingTop: 12,
       }}>
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 7,

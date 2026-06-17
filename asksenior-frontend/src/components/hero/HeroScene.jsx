@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useEffect } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
+
 import { clamp, lerp, smooth } from '../../utils/math'
 import { BottomShadow } from './HeroShadow'
 import { ParticleCloud } from './HeroParticles'
@@ -78,10 +78,7 @@ export function OgScene({ scrollT }) {
       <BottomShadow scrollT={scrollT} />
       <ParticleCloud scrollT={scrollT} />
 
-      <EffectComposer>
-        <Bloom mipmapBlur intensity={0.12} luminanceThreshold={0.88} luminanceSmoothing={0.5} />
-        <Vignette eskil={false} offset={0.12} darkness={0.14} />
-      </EffectComposer>
+
     </>
   )
 }

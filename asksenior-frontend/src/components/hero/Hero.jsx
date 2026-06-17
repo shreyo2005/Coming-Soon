@@ -9,6 +9,7 @@ export function Hero({ scrollT, setScrollT, go }) {
   const stepRef = useRef(0)
   const currentTRef = useRef(scrollT)
   const lastEventTime = useRef(0)
+  const unlockedAt = useRef(0) // timestamp when scroll was unlocked (to prevent skip)
 
   const TARGETS = [0.0, 0.30, 0.45, 0.65, 1.0]
 
@@ -21,9 +22,9 @@ export function Hero({ scrollT, setScrollT, go }) {
       const diff = targetT - currentT
 
       if (Math.abs(diff) > 0.0001) {
-        let stepDelta = diff * 0.03
+        let stepDelta = diff * 0.06  // faster lerp for snappier feel
 
-        const maxSpeed = 0.004
+        const maxSpeed = 0.006  // increased max speed
         if (Math.abs(stepDelta) > maxSpeed) stepDelta = Math.sign(stepDelta) * maxSpeed
 
         const newT = currentT + stepDelta
@@ -31,11 +32,16 @@ export function Hero({ scrollT, setScrollT, go }) {
         setScrollT(currentTRef.current)
       }
 
-      // Unlock ONLY when the animation fully finishes (0.99), otherwise the current swipe will
-      // instantly scroll the page down and the user will skip the final Hero CTA entirely!
+      // Unlock scroll when animation fully arrives at final stage.
+      // We record the exact timestamp so wheel/touch handlers can block
+      // the momentum of the *same* gesture that triggered the unlock.
       if (currentTRef.current < 0.99) {
         document.body.style.overflow = 'hidden'
       } else {
+        if (document.body.style.overflow !== 'auto') {
+          // First time we unlock — stamp the time
+          unlockedAt.current = Date.now()
+        }
         document.body.style.overflow = 'auto'
       }
 
@@ -56,6 +62,11 @@ export function Hero({ scrollT, setScrollT, go }) {
           if (now - lastEventTime.current > 800) {
             stepRef.current = Math.min(4, stepRef.current + 1)
             lastEventTime.current = now
+          }
+        } else {
+          // After unlocking, guard for 700ms so same swipe doesn't skip HeroCTA
+          if (Date.now() - unlockedAt.current < 700) {
+            e.preventDefault()
           }
         }
       }
@@ -86,6 +97,11 @@ export function Hero({ scrollT, setScrollT, go }) {
           if (now - lastEventTime.current > 800) {
             stepRef.current = Math.min(4, stepRef.current + 1)
             lastEventTime.current = now
+          }
+        } else {
+          // After unlocking, guard for 700ms so same swipe doesn't skip HeroCTA
+          if (Date.now() - unlockedAt.current < 700) {
+            e.preventDefault()
           }
         }
       } else if (deltaY < -15) {
