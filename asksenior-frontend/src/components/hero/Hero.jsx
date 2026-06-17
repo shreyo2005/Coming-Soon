@@ -10,7 +10,7 @@ export function Hero({ scrollT, setScrollT, go }) {
   const currentTRef = useRef(scrollT)
   const lastEventTime = useRef(0)
 
-  const TARGETS = [0.0, 0.30, 0.45, 0.65, 0.82, 1.0]
+  const TARGETS = [0.0, 0.30, 0.45, 0.65, 1.0]
 
   useEffect(() => {
     let animationFrameId
@@ -31,8 +31,8 @@ export function Hero({ scrollT, setScrollT, go }) {
         setScrollT(currentTRef.current)
       }
 
-      // Lock the page scroll entirely while the user is still progressing through the Hero steps.
-      // Only unlock when they have fully reached the final frame (currentT = 1.0)
+      // Unlock ONLY when the animation fully finishes (0.99), otherwise the current swipe will
+      // instantly scroll the page down and the user will skip the final Hero CTA entirely!
       if (currentTRef.current < 0.99) {
         document.body.style.overflow = 'hidden'
       } else {
@@ -51,10 +51,10 @@ export function Hero({ scrollT, setScrollT, go }) {
 
       // Scrolling DOWN
       if (e.deltaY > 0) {
-        if (stepRef.current < 5) {
+        if (stepRef.current < 4) {
           e.preventDefault()
           if (now - lastEventTime.current > 800) {
-            stepRef.current = Math.min(5, stepRef.current + 1)
+            stepRef.current = Math.min(4, stepRef.current + 1)
             lastEventTime.current = now
           }
         }
@@ -81,10 +81,10 @@ export function Hero({ scrollT, setScrollT, go }) {
       const now = Date.now()
 
       if (deltaY > 15) {
-        if (stepRef.current < 5) {
+        if (stepRef.current < 4) {
           e.preventDefault()
           if (now - lastEventTime.current > 800) {
-            stepRef.current = Math.min(5, stepRef.current + 1)
+            stepRef.current = Math.min(4, stepRef.current + 1)
             lastEventTime.current = now
           }
         }
@@ -123,8 +123,8 @@ export function Hero({ scrollT, setScrollT, go }) {
         <Canvas
           gl={{ antialias: true, powerPreference: 'high-performance' }}
           camera={{ fov: 45, position: [0, 0.1, 5.0], near: 0.1, far: 60 }}
-          dpr={[1, 1.5]}
-          style={{ position: 'absolute', inset: 0 }}
+          dpr={[1, 1.2]} // reduced max DPR from 1.5 to 1.2 to further boost mobile perf
+          style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
         >
           <Suspense fallback={null}>
             <OgScene scrollT={scrollT} />
@@ -138,6 +138,12 @@ export function Hero({ scrollT, setScrollT, go }) {
         <StageDots scrollT={scrollT} />
         <ScrollHint scrollT={scrollT} />
         <HeroCTA scrollT={scrollT} go={go} />
+
+        {/* CSS Vignette (Replaces the heavy WebGL post-processing vignette) */}
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 10,
+          background: 'radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.12) 150%)'
+        }} />
 
         {/* Seamless transition at bottom from cream hero to cream content below */}
         {scrollT >= 0.99 && (
