@@ -13,8 +13,13 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        // Split the comma-separated list from env var
+        String[] origins = allowedOrigins.split(",");
+
         registry.addMapping("/**")
-                .allowedOrigins(allowedOrigins.split(","))
+                // allowedOriginPatterns supports wildcards (e.g. https://*.vercel.app)
+                // which allowedOrigins does NOT support
+                .allowedOriginPatterns(origins)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(false);
