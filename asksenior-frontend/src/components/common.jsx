@@ -4,9 +4,12 @@ import { s, colors } from "../theme";
 
 export function Logo({ accent }) {
   return (
-    <div style={s.logoRow}>
-      <div style={s.logoMark(accent)}>AS</div>
-      <span style={s.logoText}>AskSenior</span>
+    <div style={{ ...s.logoRow, justifyContent: 'center', marginBottom: '8px' }}>
+      <img
+        src="/logo.png"
+        alt="OG Senior"
+        style={{ height: 56, width: 'auto', objectFit: 'contain' }}
+      />
     </div>
   );
 }

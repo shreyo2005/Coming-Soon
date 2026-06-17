@@ -1,0 +1,23 @@
+# Local secrets — NEVER commit these
+.env.local
+.env.production.local
+*.env
+
+# Bundled JDK (hundreds of MB — use system JDK in CI/production)
+asksenior-backend/.jdk/
+
+# Maven build output
+asksenior-backend/asksenior/target/
+
+# Node / frontend build
+asksenior-frontend/node_modules/
+asksenior-frontend/dist/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.iml
+.vscode/

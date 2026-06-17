@@ -49,11 +49,45 @@ public class Dtos {
     @Data
     public static class InsiderPayoutRequest {
         @NotBlank private String upiId;
-        @NotBlank private String collegeIdNumber;
+        private String collegeIdNumber;
         private String adminSummary;
+        @NotBlank private String verificationMethod;
+        private String eduEmail;
     }
 
     // ---- Mentor (professional) ----
+
+    public static class MentorPayoutRequest {
+        @NotBlank private String upiId;
+        private String adminSummary;
+        @NotBlank private String verificationMethod;
+        private String workEmail; // For otp flow
+
+        public String getUpiId() { return upiId; }
+        public void setUpiId(String upiId) { this.upiId = upiId; }
+        public String getAdminSummary() { return adminSummary; }
+        public void setAdminSummary(String adminSummary) { this.adminSummary = adminSummary; }
+        public String getVerificationMethod() { return verificationMethod; }
+        public void setVerificationMethod(String verificationMethod) { this.verificationMethod = verificationMethod; }
+        public String getWorkEmail() { return workEmail; }
+        public void setWorkEmail(String workEmail) { this.workEmail = workEmail; }
+    }
+
+    public static class MentorSendOtpRequest {
+        @NotBlank private String workEmail;
+        public String getWorkEmail() { return workEmail; }
+        public void setWorkEmail(String workEmail) { this.workEmail = workEmail; }
+    }
+
+    public static class MentorVerifyOtpRequest {
+        @NotBlank private String workEmail;
+        @NotBlank private String otp;
+        public String getWorkEmail() { return workEmail; }
+        public void setWorkEmail(String workEmail) { this.workEmail = workEmail; }
+        public String getOtp() { return otp; }
+        public void setOtp(String otp) { this.otp = otp; }
+    }
+
     @Data
     public static class MentorProfileRequest {
         @NotBlank(message = "Full name is required")
@@ -70,8 +104,7 @@ public class Dtos {
         @NotBlank(message = "Designation is required")
         private String designation;
 
-        @NotBlank(message = "Work email is required")
-        @Email(message = "Please provide a valid work email")
+        // Optional because mentors can verify using ID Card instead of Work Email
         private String workEmail;
 
         @NotBlank(message = "LinkedIn profile is required")
@@ -91,15 +124,10 @@ public class Dtos {
         @NotBlank(message = "Full name is required")
         private String fullName;
 
-        @NotBlank(message = "Phone number is required")
-        @Pattern(regexp = "^(\\+91)?[6-9][0-9]{9}$",
-                message = "Enter a valid 10-digit Indian mobile number")
         private String phone;
 
-        @NotBlank(message = "College is required")
         private String college;
 
-        @NotBlank(message = "Course is required")
         private String course;
 
         private String customCourse;
@@ -116,6 +144,16 @@ public class Dtos {
     @Data
     public static class UpiRequest {
         @NotBlank private String upiId;
+    }
+
+    @Data
+    public static class SendOtpRequest {
+        @NotBlank @Email private String eduEmail;
+    }
+
+    @Data
+    public static class VerifyOtpRequest {
+        @NotBlank private String otp;
     }
 
     @Data

@@ -42,6 +42,18 @@ public class InsiderController {
         return new MessageResponse("Submitted for approval");
     }
 
+    @PostMapping("/{id}/send-otp")
+    public MessageResponse sendOtp(@PathVariable Long id, @Valid @RequestBody SendOtpRequest req) {
+        service.sendOtp(id, req.getEduEmail());
+        return new MessageResponse("OTP sent");
+    }
+
+    @PostMapping("/{id}/verify-otp")
+    public MessageResponse verifyOtp(@PathVariable Long id, @Valid @RequestBody VerifyOtpRequest req) {
+        service.verifyOtp(id, req.getOtp());
+        return new MessageResponse("OTP verified successfully");
+    }
+
     @PutMapping("/{id}/onboarding-watched")
     public MessageResponse onboarding(@PathVariable Long id) {
         service.markOnboardingWatched(id);

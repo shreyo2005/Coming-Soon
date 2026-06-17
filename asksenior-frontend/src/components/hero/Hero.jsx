@@ -143,7 +143,7 @@ export function Hero({ scrollT, setScrollT, go }) {
         {scrollT >= 0.99 && (
           <div style={{
             position: 'absolute', bottom: 0, left: 0, right: 0, height: 80,
-            background: 'linear-gradient(to bottom, transparent, #F3F3F3)',
+            background: 'linear-gradient(to bottom, transparent, #F5F0E8)',
             zIndex: 20, pointerEvents: 'none',
           }} />
         )}

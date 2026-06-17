@@ -45,5 +45,15 @@ public class Insider {
 
     private boolean onboardingWatched = false;
 
+    // Verification details
+    private String verificationMethod;
+    private String eduEmail;
+    private Boolean eduEmailVerified = false;
+    private String otpCode;
+    private LocalDateTime otpCreatedAt;
+    private Integer otpAttempts = 0;
+    private String idCardPath;
+    private String proofOfAdmissionPath;
+
     private LocalDateTime registeredAt;
 }

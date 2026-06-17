@@ -30,16 +30,22 @@ public class AdminKeyFilter implements Filter {
             return;
         }
 
-        // Protect admin stats + catalog addition + the GET endpoints that expose personal data (including specific IDs)
+        // Protect admin stats + catalog addition + ALL list GET endpoints that expose personal data
+        // Allow detail GET endpoints (/api/insider/{id} and /api/mentor/{id})
         boolean isProtected =
                 path.startsWith("/api/admin") ||
                         ("POST".equals(method) && path.equals("/api/catalog/colleges")) ||
                         ("GET".equals(method) &&
-                                (path.startsWith("/api/insider") || path.startsWith("/api/mentor") || path.startsWith("/api/student")));
+                                (path.equals("/api/insider") || path.equals("/api/mentor") ||
+                                 path.equals("/api/student")));
 
         if (isProtected) {
             String provided = request.getHeader("X-Admin-Key");
-            if (provided == null || !provided.equals(adminKey)) {
+            boolean valid = provided != null &&
+                    java.security.MessageDigest.isEqual(
+                            provided.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+                            adminKey.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            if (!valid) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setContentType("application/json");
                 response.getWriter().write("{\"message\":\"Unauthorized - admin key required\"}");

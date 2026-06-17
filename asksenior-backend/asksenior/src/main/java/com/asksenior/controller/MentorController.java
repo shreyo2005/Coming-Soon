@@ -36,6 +36,24 @@ public class MentorController {
         return new MessageResponse("Onboarding marked complete");
     }
 
+    @PutMapping("/{id}/payout")
+    public MessageResponse payout(@PathVariable Long id, @Valid @RequestBody MentorPayoutRequest req) {
+        service.updatePayout(id, req);
+        return new MessageResponse("Payout and verification saved");
+    }
+
+    @PostMapping("/{id}/send-otp")
+    public MessageResponse sendOtp(@PathVariable Long id, @Valid @RequestBody MentorSendOtpRequest req) {
+        service.sendOtp(id, req);
+        return new MessageResponse("OTP sent to " + req.getWorkEmail());
+    }
+
+    @PostMapping("/{id}/verify-otp")
+    public MessageResponse verifyOtp(@PathVariable Long id, @Valid @RequestBody MentorVerifyOtpRequest req) {
+        service.verifyOtp(id, req);
+        return new MessageResponse("Email verified successfully");
+    }
+
     @GetMapping("/{id}")
     public Mentor get(@PathVariable Long id) {
         return service.get(id);

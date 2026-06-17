@@ -46,6 +46,21 @@ public class ProfileController {
         return new UploadResponse("Webcam photo uploaded successfully", path);
     }
 
+    @PostMapping("/upload-document")
+    public UploadResponse uploadDocument(
+            @RequestParam String role,
+            @RequestParam Long id,
+            @RequestParam String docType,
+            @RequestParam("file") MultipartFile file) {
+        String path = fileStorage.storeImage(file, role + "_" + id + "_" + docType);
+        if ("insider".equalsIgnoreCase(role)) {
+            insiderService.saveDocument(id, docType, path);
+        } else if ("mentor".equalsIgnoreCase(role)) {
+            mentorService.saveDocument(id, docType, path);
+        }
+        return new UploadResponse("Document uploaded successfully", path);
+    }
+
     @PostMapping("/verify-upi")
     public UpiResponse verifyUpi(@Valid @RequestBody UpiRequest req) {
         var result = upiValidation.validate(req.getUpiId());

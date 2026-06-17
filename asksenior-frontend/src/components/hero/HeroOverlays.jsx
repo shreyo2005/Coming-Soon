@@ -247,7 +247,7 @@ export function HeroCTA({ scrollT, go }) {
     <>
       <div style={{
         position: 'absolute', bottom: 0, left: 0, right: 0, height: '65%',
-        background: 'linear-gradient(to top, #EAEAEA 30%, rgba(234,234,234,0.75) 65%, transparent)',
+        background: 'linear-gradient(to top, #F5F0E8 30%, rgba(245,240,232,0.75) 65%, transparent)',
         zIndex: 11, pointerEvents: 'none', opacity: op,
       }} />
 

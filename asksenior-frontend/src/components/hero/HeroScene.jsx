@@ -68,10 +68,10 @@ export function OgScene({ scrollT }) {
   return (
     <>
       <ResponsiveCamera />
-      <color attach="background" args={['#EAEAEA']} />
-      <ambientLight color="#FFF5EE" intensity={0.80} />
-      <directionalLight color="#FFE8C8" intensity={1.1} position={[2, 6, 4]} />
-      <directionalLight color="#D8E0F0" intensity={0.35} position={[-4, 2, -2]} />
+      <color attach="background" args={['#F5F0E8']} />
+      <ambientLight color="#FFF8EC" intensity={0.90} />
+      <directionalLight color="#FFD97A" intensity={1.2} position={[2, 6, 4]} />
+      <directionalLight color="#C8D4EE" intensity={0.28} position={[-4, 2, -2]} />
 
       {/* Radial shadow halo — same technique as MDX */}
       <BackgroundHalo scrollT={scrollT} />

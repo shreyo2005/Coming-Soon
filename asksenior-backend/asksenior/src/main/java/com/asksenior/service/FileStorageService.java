@@ -3,26 +3,32 @@ package com.asksenior.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
-import java.nio.file.*;
 import java.util.Set;
 import java.util.UUID;
 
 @Service
 public class FileStorageService {
 
-    @Value("${app.upload.dir:uploads}")
-    private String uploadDir;
+    private final S3Client s3Client;
+
+    @Value("${aws.s3.bucket}")
+    private String bucketName;
 
     private static final long MAX_SIZE = 5 * 1024 * 1024; // 5 MB
-    private static final Set<String> ALLOWED_EXT = Set.of("jpg", "jpeg", "png");
-    private static final Set<String> ALLOWED_TYPES = Set.of("image/jpeg", "image/png");
+    private static final Set<String> ALLOWED_EXT = Set.of("jpg", "jpeg", "png", "pdf");
+    private static final Set<String> ALLOWED_TYPES = Set.of(
+            "image/jpeg", "image/png", 
+            "application/pdf");
 
-    /**
-     * Validates and stores an image file. Returns the stored relative path.
-     * prefix example: "student_12_photo"
-     */
+    public FileStorageService(S3Client s3Client) {
+        this.s3Client = s3Client;
+    }
+
     public String storeImage(MultipartFile file, String prefix) {
         if (file == null || file.isEmpty())
             throw new RuntimeException("No file provided");
@@ -30,38 +36,36 @@ public class FileStorageService {
         if (file.getSize() > MAX_SIZE)
             throw new RuntimeException("File too large. Maximum size is 5 MB");
 
-        // Validate content type
         String contentType = file.getContentType();
         if (contentType == null || !ALLOWED_TYPES.contains(contentType.toLowerCase()))
-            throw new RuntimeException("Invalid file type. Only JPG, JPEG and PNG are allowed");
+            throw new RuntimeException("Invalid file type. Only JPG, PNG, and PDF are allowed");
 
-        // Validate + sanitize extension
         String original = file.getOriginalFilename() == null ? "" : file.getOriginalFilename();
         String ext = "";
         if (original.contains(".")) {
             ext = original.substring(original.lastIndexOf(".") + 1).toLowerCase();
         }
         if (!ALLOWED_EXT.contains(ext))
-            throw new RuntimeException("Invalid file extension. Only .jpg, .jpeg, .png allowed");
+            throw new RuntimeException("Invalid file extension. Only .jpg, .jpeg, .png, .pdf allowed");
 
-        // Build a safe filename — never trust the user's filename
         String safeName = prefix + "_" + UUID.randomUUID().toString().substring(0, 12) + "." + ext;
 
         try {
-            Path dir = Paths.get(uploadDir).toAbsolutePath().normalize();
-            Files.createDirectories(dir);
-            Path target = dir.resolve(safeName).normalize();
+            PutObjectRequest putOb = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(safeName)
+                    .contentType(contentType)
+                    .build();
 
-            // Path-traversal guard
-            if (!target.getParent().equals(dir))
-                throw new RuntimeException("Invalid storage path");
-
-            Files.copy(file.getInputStream(), target, StandardCopyOption.REPLACE_EXISTING);
+            s3Client.putObject(putOb, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+            
         } catch (IOException e) {
-            throw new RuntimeException("Failed to store file: " + e.getMessage());
+            throw new RuntimeException("Failed to read file: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload to S3: " + e.getMessage());
         }
 
-        // Stored path saved in DB; served via /uploads/** (see WebConfig)
-        return "/uploads/" + safeName;
+        // Return the API path so frontend can fetch it and get redirected to the presigned URL
+        return "/api/files/" + safeName;
     }
 }

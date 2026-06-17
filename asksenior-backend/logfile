@@ -1,0 +1,61 @@
+2026-06-15 19:26:16.486 IST [36469] LOG:  starting PostgreSQL 15.18 (Homebrew) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.6), 64-bit
+2026-06-15 19:26:16.488 IST [36469] LOG:  listening on IPv6 address "::1", port 5433
+2026-06-15 19:26:16.488 IST [36469] LOG:  listening on IPv4 address "127.0.0.1", port 5433
+2026-06-15 19:26:16.489 IST [36469] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5433"
+2026-06-15 19:26:16.491 IST [36473] LOG:  database system was shut down at 2026-06-15 19:26:15 IST
+2026-06-15 19:26:16.493 IST [36469] LOG:  database system is ready to accept connections
+2026-06-15 20:26:14.333 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 20:27:56.572 IST [36471] LOG:  checkpoint complete: wrote 1011 buffers (6.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=102.223 s, sync=0.012 s, total=102.240 s; sync files=346, longest=0.001 s, average=0.001 s; distance=4724 kB, estimate=4724 kB
+2026-06-15 20:31:14.572 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 20:31:14.984 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.407 s, sync=0.001 s, total=0.413 s; sync files=4, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=4252 kB
+2026-06-15 20:36:14.981 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 20:36:15.394 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.409 s, sync=0.001 s, total=0.415 s; sync files=5, longest=0.001 s, average=0.001 s; distance=1 kB, estimate=3827 kB
+2026-06-15 20:41:14.392 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 20:41:15.619 IST [36471] LOG:  checkpoint complete: wrote 13 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.221 s, sync=0.002 s, total=1.229 s; sync files=8, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=3444 kB
+2026-06-15 20:46:14.592 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 20:46:15.008 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.410 s, sync=0.002 s, total=0.418 s; sync files=5, longest=0.001 s, average=0.001 s; distance=2 kB, estimate=3100 kB
+2026-06-15 20:55:00.189 IST [37947] ERROR:  column "edu_email_verified" of relation "insiders" contains null values
+2026-06-15 20:55:00.189 IST [37947] STATEMENT:  alter table if exists insiders add column edu_email_verified boolean not null
+2026-06-15 20:56:14.998 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 20:56:15.506 IST [36471] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.506 s, sync=0.001 s, total=0.509 s; sync files=6, longest=0.001 s, average=0.001 s; distance=20 kB, estimate=2792 kB
+2026-06-15 21:01:14.457 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 21:01:15.067 IST [36471] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.608 s, sync=0.001 s, total=0.610 s; sync files=7, longest=0.001 s, average=0.001 s; distance=2 kB, estimate=2513 kB
+2026-06-15 21:06:14.061 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 21:06:14.472 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.407 s, sync=0.001 s, total=0.413 s; sync files=5, longest=0.001 s, average=0.001 s; distance=5 kB, estimate=2262 kB
+2026-06-15 21:11:14.466 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 21:11:14.575 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.104 s, sync=0.001 s, total=0.110 s; sync files=2, longest=0.001 s, average=0.001 s; distance=4 kB, estimate=2036 kB
+2026-06-15 21:16:15.856 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 21:16:15.964 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.104 s, sync=0.001 s, total=0.109 s; sync files=2, longest=0.001 s, average=0.001 s; distance=5 kB, estimate=1833 kB
+2026-06-15 21:57:26.375 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 21:57:26.485 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.103 s, sync=0.001 s, total=0.112 s; sync files=2, longest=0.001 s, average=0.001 s; distance=7 kB, estimate=1651 kB
+2026-06-15 22:02:26.477 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 22:02:28.103 IST [36471] LOG:  checkpoint complete: wrote 17 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.621 s, sync=0.001 s, total=1.627 s; sync files=12, longest=0.001 s, average=0.001 s; distance=21 kB, estimate=1488 kB
+2026-06-15 22:07:26.095 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 22:07:26.614 IST [36471] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.512 s, sync=0.002 s, total=0.519 s; sync files=6, longest=0.001 s, average=0.001 s; distance=2 kB, estimate=1339 kB
+2026-06-15 22:12:26.606 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 22:12:27.021 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.408 s, sync=0.001 s, total=0.415 s; sync files=5, longest=0.001 s, average=0.001 s; distance=2 kB, estimate=1205 kB
+2026-06-15 22:15:50.656 IST [41763] ERROR:  duplicate key value violates unique constraint "uk3bc7865sx3tvbu45750dk6nrc"
+2026-06-15 22:15:50.656 IST [41763] DETAIL:  Key (work_email)=() already exists.
+2026-06-15 22:15:50.656 IST [41763] STATEMENT:  update mentors set admin_summary=$1,area_of_expertise=$2,bio=$3,company=$4,designation=$5,email=$6,full_name=$7,linked_in_url=$8,onboarding_watched=$9,otp_code=$10,phone=$11,photo_path=$12,registered_at=$13,upi_id=$14,upi_verification_status=$15,verification_method=$16,work_email=$17,work_email_verified=$18,years_of_experience=$19 where id=$20
+2026-06-15 22:17:26.024 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 22:17:26.337 IST [36471] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.309 s, sync=0.001 s, total=0.314 s; sync files=4, longest=0.001 s, average=0.001 s; distance=2 kB, estimate=1085 kB
+2026-06-15 22:22:26.332 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 22:22:26.646 IST [36471] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.307 s, sync=0.001 s, total=0.316 s; sync files=4, longest=0.001 s, average=0.001 s; distance=2 kB, estimate=977 kB
+2026-06-15 22:42:26.630 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 22:42:27.045 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.409 s, sync=0.001 s, total=0.416 s; sync files=5, longest=0.001 s, average=0.001 s; distance=4 kB, estimate=879 kB
+2026-06-15 22:47:26.042 IST [36471] LOG:  checkpoint starting: time
+2026-06-15 22:47:26.459 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.410 s, sync=0.002 s, total=0.417 s; sync files=5, longest=0.001 s, average=0.001 s; distance=20 kB, estimate=793 kB
+2026-06-17 17:59:02.067 IST [49648] ERROR:  relation "flyway_schema_history" does not exist at character 43
+2026-06-17 17:59:02.067 IST [49648] STATEMENT:  SELECT version, description, success FROM flyway_schema_history ORDER BY installed_rank;
+2026-06-17 17:59:37.556 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 17:59:40.204 IST [36471] LOG:  checkpoint complete: wrote 27 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.642 s, sync=0.003 s, total=2.649 s; sync files=18, longest=0.002 s, average=0.001 s; distance=46 kB, estimate=719 kB
+2026-06-17 18:04:37.211 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 18:04:37.524 IST [36471] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.307 s, sync=0.001 s, total=0.313 s; sync files=4, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=647 kB
+2026-06-17 18:14:37.542 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 18:14:38.059 IST [36471] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.513 s, sync=0.001 s, total=0.518 s; sync files=6, longest=0.001 s, average=0.001 s; distance=10 kB, estimate=583 kB
+2026-06-17 18:38:47.816 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 18:38:48.333 IST [36471] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.510 s, sync=0.001 s, total=0.519 s; sync files=6, longest=0.001 s, average=0.001 s; distance=4 kB, estimate=525 kB
+2026-06-17 18:43:47.337 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 18:43:47.448 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.103 s, sync=0.001 s, total=0.112 s; sync files=2, longest=0.001 s, average=0.001 s; distance=3 kB, estimate=473 kB
+2026-06-17 18:58:47.448 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 18:58:47.558 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.104 s, sync=0.001 s, total=0.111 s; sync files=2, longest=0.001 s, average=0.001 s; distance=3 kB, estimate=426 kB

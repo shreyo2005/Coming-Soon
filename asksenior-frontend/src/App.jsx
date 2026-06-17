@@ -1,10 +1,9 @@
 import { useState } from "react";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
-import Onboarding from "./pages/Onboarding";
 import StudentForm from "./pages/StudentForm";
 import { InsiderCollege, InsiderProfile, InsiderPayout } from "./pages/InsiderFlow";
-import MentorForm from "./pages/MentorForm";
+import { MentorCompany, MentorProfile, MentorPayout } from "./pages/MentorFlow";
 import Success from "./pages/Success";
 import AdminDashboard from "./pages/AdminDashboard";
 
@@ -23,13 +22,13 @@ export default function App() {
   const afterSignIn = (data) => {
     setUserId(data.id);
     setEmail(data.email);
-    setScreen("onboarding");
-  };
-
-  const afterOnboarding = () => {
-    if (role === "student") setScreen("student-form");
-    else if (role === "insider") setScreen("insider-college");
-    else if (role === "mentor") setScreen("mentor-form");
+    if (role === 'student') {
+      setScreen("student-form");
+    } else if (role === 'insider') {
+      setScreen("insider-college");
+    } else if (role === 'mentor') {
+      setScreen("mentor-company");
+    }
   };
 
   switch (screen) {
@@ -39,18 +38,20 @@ export default function App() {
       return <AdminDashboard onBack={() => setScreen("landing")} />;
     case "signin":
       return <SignIn role={role} onDone={afterSignIn} onBack={() => setScreen("landing")} />;
-    case "onboarding":
-      return <Onboarding role={role} userId={userId} onDone={afterOnboarding} />;
     case "student-form":
       return <StudentForm userId={userId} onDone={() => setScreen("success")} />;
     case "insider-college":
-      return <InsiderCollege userId={userId} onNext={() => setScreen("insider-profile")} onBack={() => setScreen("onboarding")} />;
+      return <InsiderCollege userId={userId} onNext={() => setScreen("insider-profile")} onBack={() => setScreen("landing")} />;
     case "insider-profile":
       return <InsiderProfile userId={userId} onNext={() => setScreen("insider-payout")} onBack={() => setScreen("insider-college")} />;
     case "insider-payout":
       return <InsiderPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("insider-profile")} />;
-    case "mentor-form":
-      return <MentorForm userId={userId} onDone={() => setScreen("success")} />;
+    case "mentor-company":
+      return <MentorCompany userId={userId} onNext={() => setScreen("mentor-profile")} onBack={() => setScreen("landing")} />;
+    case "mentor-profile":
+      return <MentorProfile userId={userId} onNext={() => setScreen("mentor-payout")} onBack={() => setScreen("mentor-company")} />;
+    case "mentor-payout":
+      return <MentorPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("mentor-profile")} />;
     case "success":
       return <Success role={role} email={email} />;
     default:

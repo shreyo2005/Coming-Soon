@@ -38,6 +38,19 @@ public class Mentor {
     @Column(length = 1000)
     private String adminSummary;
 
+    // Payout and Verification
+    private String upiId;
+    private String upiVerificationStatus; // e.g. VERIFIED
+    private String verificationMethod;
+    private Boolean workEmailVerified = false;
+    private String otpCode;
+    private LocalDateTime otpCreatedAt;
+    private Integer otpAttempts = 0;
+    
+    // Verification documents
+    private String proofOfWorkPath;
+    private String employeeIdCardPath;
+
     private boolean onboardingWatched = false;
 
     private LocalDateTime registeredAt;

@@ -49,7 +49,7 @@ export function HowItWorksSection() {
           <h2 style={{ ...F.display, fontSize: 'clamp(26px,4vw,44px)', marginBottom: 14 }}>Three steps.<br />One honest conversation.</h2>
           <p style={{ ...F.body, maxWidth: 460, margin: '0 auto' }}>We connect students with Insiders and Mentors who get paid for genuine advice. When real money is on the line, real answers follow.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', border: '1px solid #F3F4F6', borderRadius: 20, overflow: 'hidden', marginBottom: 60 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', border: '1px solid #F3F4F6', borderRadius: 20, overflow: 'hidden', marginBottom: 0 }}>
           {steps.map((st, i) => (
             <div key={i} style={{ padding: '32px 28px', borderRight: i < 2 ? '1px solid #F3F4F6' : 'none', background: '#fff' }}>
               <div style={{ fontFamily: 'Syne,sans-serif', fontSize: 12, fontWeight: 800, color: st.color, letterSpacing: '0.06em', marginBottom: 10 }}>{st.n}</div>
@@ -57,13 +57,6 @@ export function HowItWorksSection() {
               <div style={{ fontFamily: 'DM Sans,sans-serif', fontSize: 14, color: '#9CA3AF', lineHeight: 1.6, whiteSpace: 'pre-line' }}>{st.sub}</div>
             </div>
           ))}
-        </div>
-        <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <p style={{ ...F.eyebrow, color: '#059669' }}>Watch the story</p>
-          <h3 style={{ ...F.display, fontSize: 'clamp(20px,3vw,30px)', marginBottom: 24 }}>Why we built OgSenior</h3>
-        </div>
-        <div style={{ position: 'relative', maxWidth: 720, margin: '0 auto', borderRadius: 20, overflow: 'hidden', aspectRatio: '16/9', boxShadow: '0 20px 60px rgba(0,0,0,0.1)', border: '1px solid #F3F4F6' }}>
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" title="Why we built OgSenior" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
         </div>
       </div>
     </section>

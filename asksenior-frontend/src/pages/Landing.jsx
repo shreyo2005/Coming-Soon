@@ -15,7 +15,7 @@ function GlobalStyles() {
     s.textContent = `
       *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
       html{scroll-behavior:smooth}
-      body{background:#EAEAEA;overflow-x:hidden}
+      body{background:#F5F0E8;overflow-x:hidden}
       @keyframes ogpulse{0%,100%{opacity:.3}50%{opacity:1}}
       @keyframes ogscroll{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(6px);opacity:1}}
       @keyframes ogbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
