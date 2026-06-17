@@ -232,7 +232,7 @@ export function ParticleCloud({ scrollT }) {
     meshRef.current.rotation.x = Math.sin(el * 0.04) * 0.05 * sphereAmt + Math.sin(t * Math.PI) * 0.07
 
     const endYOffset = smooth(clamp((t - 0.80) / 0.13, 0, 1)) * 1.6
-    meshRef.current.position.y = Math.sin(el * 0.30) * lerp(0.045, 0.015, 1 - sphereAmt) + endYOffset
+    meshRef.current.position.y = Math.sin(el * 0.30) * lerp(0.045, 0.015, 1 - sphereAmt) + endYOffset + 0.45
 
     let targetTagOpacity = 0
     if (t < 0.05) targetTagOpacity = 1 - (t / 0.05)
