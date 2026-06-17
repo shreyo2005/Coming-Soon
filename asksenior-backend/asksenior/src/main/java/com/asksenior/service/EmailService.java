@@ -45,9 +45,9 @@ public class EmailService {
 
             helper.setText(htmlMsg, true);
             mailSender.send(message);
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             log.error("Failed to send OTP email to {}: {}", toEmail, e.getMessage(), e);
-            throw new RuntimeException("Failed to send OTP email. Please try again later.");
+            throw new RuntimeException("Failed to send OTP email. Please verify your Resend configuration.");
         }
     }
 }

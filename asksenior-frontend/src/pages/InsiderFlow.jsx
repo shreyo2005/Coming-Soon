@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "../api/api";
 import { s, colors, ROLE } from "../theme";
 import { Logo, ErrorBox, Progress, CollegePicker, CoursePicker } from "../components/common";
@@ -65,7 +65,7 @@ export function InsiderProfile({ userId, onNext, onBack }) {
     if (!f.fullName) return setError("Full name is required");
     if (!phoneOk(f.phone)) return setError("Enter a valid 10-digit Indian mobile number (starts 6-9)");
     if (!f.bio) return setError("Please write a short bio");
-    if (words > 50) return setError("Bio must be 50 words or less");
+    if (words > 150) return setError("Bio must be 150 words or less");
     try {
       setLoading(true); setError("");
       await api.put(`/insider/${userId}/profile`, f);
@@ -87,12 +87,12 @@ export function InsiderProfile({ userId, onNext, onBack }) {
         <input style={s.input} value={f.fullName} onChange={(e) => set("fullName")(e.target.value)} placeholder="Your full name" />
         <label style={s.label}>Phone number {reqAst}</label>
         <input style={s.input} value={f.phone} onChange={(e) => set("phone")(e.target.value.replace(/[^\d+]/g, ""))} placeholder="9876543210" type="tel" />
-        <label style={s.label}>Short bio <span style={{ color: colors.textFaint, fontWeight: 400 }}>(max 50 words)</span> {reqAst}</label>
+        <label style={s.label}>Short bio <span style={{ color: colors.textFaint, fontWeight: 400 }}>(max 150 words)</span> {reqAst}</label>
         <textarea style={{ ...s.textarea, marginBottom: "4px" }} rows={4} value={f.bio}
           onChange={(e) => set("bio")(e.target.value)}
           placeholder="What's your college like? What can you help students with?" />
-        <div style={{ fontSize: "11.5px", textAlign: "right", color: words > 50 ? colors.danger : colors.textFaint, marginBottom: "16px" }}>
-          {words}/50 words
+        <div style={{ fontSize: "11.5px", textAlign: "right", color: words > 150 ? colors.danger : colors.textFaint, marginBottom: "16px" }}>
+          {words}/150 words
         </div>
         <label style={s.label}>LinkedIn <span style={{ color: colors.textFaint, fontWeight: 400 }}>(optional)</span></label>
         <input style={s.input} value={f.linkedInUrl} onChange={(e) => set("linkedInUrl")(e.target.value)} placeholder="https://linkedin.com/in/..." />
@@ -117,6 +117,16 @@ export function InsiderPayout({ userId, onDone, onBack }) {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      timer = setInterval(() => setCountdown((c) => c - 1), 1000);
+    }
+    return () => clearInterval(timer);
+  }, [countdown]);
 
   const reqAst = <span style={{ color: "red" }}>*</span>;
 
@@ -150,11 +160,12 @@ export function InsiderPayout({ userId, onDone, onBack }) {
       return setError("Please enter a valid .edu or .ac.in email address");
     }
     try {
-      setLoading(true); setError("");
+      setSendingOtp(true); setError("");
       await api.post(`/insider/${userId}/send-otp`, { eduEmail: f.eduEmail });
       setOtpSent(true);
+      setCountdown(60);
     } catch (e) { setError(e.message || "Failed to send OTP"); }
-    finally { setLoading(false); }
+    finally { setSendingOtp(false); }
   };
 
   const handleVerifyOtp = async () => {
@@ -225,8 +236,26 @@ export function InsiderPayout({ userId, onDone, onBack }) {
             <label style={{...s.label, fontSize: "13px"}}>College Email ID (.edu or .ac.in)</label>
             <div style={{ display: "flex", gap: "8px", marginBottom: otpSent ? "12px" : "0" }}>
               <input style={{...s.input, marginBottom: 0}} value={f.eduEmail} disabled={otpSent} onChange={(e) => set("eduEmail")(e.target.value)} placeholder="student@college.edu" />
-              <button style={{...s.btn(accent), padding: "8px 12px", fontSize: "13px", whiteSpace: "nowrap"}} onClick={handleSendOtp} disabled={loading || (otpSent && !error)}>
-                {otpSent ? "Resend OTP" : "Send OTP"}
+              <button 
+                style={{
+                  ...s.btn(otpSent ? "#2e7d32" : accent), 
+                  padding: "8px 12px", 
+                  fontSize: "13px", 
+                  whiteSpace: "nowrap",
+                  opacity: (sendingOtp || (otpSent && countdown > 0)) ? 0.7 : 1,
+                  cursor: (sendingOtp || (otpSent && countdown > 0)) ? "not-allowed" : "pointer"
+                }} 
+                onClick={handleSendOtp} 
+                disabled={sendingOtp || (otpSent && countdown > 0)}
+              >
+                {sendingOtp ? (
+                  <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                    Sending...
+                  </span>
+                ) : otpSent ? (
+                  countdown > 0 ? `Sent ✓ (${countdown}s)` : "Resend OTP"
+                ) : "Send OTP"}
               </button>
             </div>
             

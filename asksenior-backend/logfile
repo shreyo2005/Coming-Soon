@@ -59,3 +59,7 @@
 2026-06-17 18:43:47.448 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.103 s, sync=0.001 s, total=0.112 s; sync files=2, longest=0.001 s, average=0.001 s; distance=3 kB, estimate=473 kB
 2026-06-17 18:58:47.448 IST [36471] LOG:  checkpoint starting: time
 2026-06-17 18:58:47.558 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.104 s, sync=0.001 s, total=0.111 s; sync files=2, longest=0.001 s, average=0.001 s; distance=3 kB, estimate=426 kB
+2026-06-17 21:56:01.915 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 21:56:02.354 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.421 s, sync=0.006 s, total=0.441 s; sync files=5, longest=0.005 s, average=0.002 s; distance=4 kB, estimate=384 kB
+2026-06-17 22:01:01.383 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 22:01:01.673 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.227 s, sync=0.006 s, total=0.292 s; sync files=2, longest=0.006 s, average=0.003 s; distance=4 kB, estimate=346 kB

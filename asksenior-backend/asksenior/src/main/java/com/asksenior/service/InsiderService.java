@@ -101,7 +101,6 @@ public class InsiderService {
         emailService.sendOtpEmail(eduEmail, otp);
     }
 
-    @Transactional
     public void verifyOtp(Long id, String otp) {
         Insider i = get(id);
         if (i.getOtpCode() == null)

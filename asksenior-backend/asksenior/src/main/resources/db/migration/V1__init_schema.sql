@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-\restrict IVXcTCzw5MhIfSmdHQp27H5QRAtK4DNL0XGoUbaaxfyhOFbcEwZaNwpnc87du19
-
 -- Dumped from database version 15.18 (Homebrew)
 -- Dumped by pg_dump version 15.18 (Homebrew)
 
@@ -303,6 +301,3 @@ ALTER TABLE ONLY public.insiders
 --
 -- PostgreSQL database dump complete
 --
-
-\unrestrict IVXcTCzw5MhIfSmdHQp27H5QRAtK4DNL0XGoUbaaxfyhOFbcEwZaNwpnc87du19
-

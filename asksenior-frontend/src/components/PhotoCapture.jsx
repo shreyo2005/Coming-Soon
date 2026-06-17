@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { s, colors } from "../theme";
 
 const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8081/api";
@@ -17,11 +17,28 @@ export default function PhotoCapture({ role, userId, accent, onUploaded }) {
 
   const a = accent || colors.accent;
 
+  // Ensure webcam is released if component unmounts
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((t) => t.stop());
+      }
+    };
+  }, []);
+
   // ---- Device file upload ----
   const onFilePick = (e) => {
     const file = e.target.files[0];
     if (file) upload(file);
   };
+
+  // Assign the stream to the video element whenever mode switches to webcam
+  useEffect(() => {
+    if (mode === "webcam" && videoRef.current && streamRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+      videoRef.current.play().catch(e => console.warn("Auto-play failed:", e));
+    }
+  }, [mode]);
 
   // ---- Webcam ----
   const startWebcam = async () => {
@@ -30,7 +47,6 @@ export default function PhotoCapture({ role, userId, accent, onUploaded }) {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       streamRef.current = stream;
       setMode("webcam");
-      setTimeout(() => { if (videoRef.current) videoRef.current.srcObject = stream; }, 100);
     } catch {
       setError("Could not access camera. Check browser permissions.");
     }
@@ -105,7 +121,14 @@ export default function PhotoCapture({ role, userId, accent, onUploaded }) {
 
       {mode === "webcam" ? (
         <div>
-          <video ref={videoRef} autoPlay playsInline style={{ width: "100%", borderRadius: "10px", background: "#000", marginBottom: "10px" }} />
+          <video 
+            ref={videoRef} 
+            autoPlay 
+            playsInline 
+            muted
+            onLoadedMetadata={() => videoRef.current?.play().catch(() => {})}
+            style={{ width: "100%", borderRadius: "10px", background: "#000", marginBottom: "10px" }} 
+          />
           <div style={{ display: "flex", gap: "8px" }}>
             <button style={{ ...s.btn(a), marginBottom: 0 }} onClick={capture}>Capture</button>
             <button style={s.btnGhost} onClick={stopWebcam}>Cancel</button>
