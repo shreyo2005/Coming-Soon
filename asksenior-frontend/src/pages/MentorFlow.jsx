@@ -7,7 +7,7 @@ import PhotoCapture from "../components/PhotoCapture";
 const accent = ROLE.mentor.accent;
 
 // Step 1 — Company
-export function MentorCompany({ userId, onNext, onBack }) {
+export function MentorCompany({ userId, onNext, onBack, onExplore }) {
   const [f, setF] = useState({ company: "", designation: "", areaOfExpertise: "", yearsOfExperience: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -64,7 +64,7 @@ export function MentorCompany({ userId, onNext, onBack }) {
 }
 
 // Step 2 — Profile + photo
-export function MentorProfile({ userId, onNext, onBack }) {
+export function MentorProfile({ userId, onNext, onBack, onExplore }) {
   const [f, setF] = useState({ fullName: "", phone: "", linkedInUrl: "", bio: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -127,7 +127,7 @@ export function MentorProfile({ userId, onNext, onBack }) {
 }
 
 // Step 3 — Payout and Verification
-export function MentorPayout({ userId, onDone, onBack }) {
+export function MentorPayout({ userId, onDone, onBack, onExplore }) {
   const [f, setF] = useState({ 
     upiId: "", 
     verificationMethod: "", 
@@ -178,6 +178,11 @@ export function MentorPayout({ userId, onDone, onBack }) {
   const handleSendOtp = async () => {
     if (!f.workEmail || !/\S+@\S+\.\S+/.test(f.workEmail)) {
       return setError("Please enter a valid work email address");
+    }
+    const domain = f.workEmail.split('@')[1].toLowerCase();
+    const freeDomains = ["gmail.com", "yahoo.com", "yahoo.in", "hotmail.com", "outlook.com", "live.com", "aol.com", "icloud.com", "protonmail.com", "mail.com"];
+    if (freeDomains.includes(domain)) {
+      return setError("Please use your official company email address. Personal emails (like Gmail or Yahoo) are not allowed.");
     }
     try {
       setLoading(true); setError("");
@@ -253,7 +258,10 @@ export function MentorPayout({ userId, onDone, onBack }) {
           <div style={{ marginBottom: "16px", padding: "12px", background: "#f8fafc", borderRadius: "8px", border: `1px solid ${colors.border}` }}>
             <label style={{...s.label, fontSize: "13px"}}>Company Work Email</label>
             <div style={{ display: "flex", gap: "8px", marginBottom: otpSent ? "12px" : "0" }}>
-              <input style={{...s.input, marginBottom: 0}} value={f.workEmail} disabled={otpSent} onChange={(e) => set("workEmail")(e.target.value)} placeholder="you@company.com" type="email" />
+              <input style={{...s.input, marginBottom: 0}} value={f.workEmail} onChange={(e) => {
+                set("workEmail")(e.target.value);
+                if (otpSent) setOtpSent(false);
+              }} placeholder="you@company.com" type="email" />
               <button style={{...s.btn(accent), padding: "8px 12px", fontSize: "13px", whiteSpace: "nowrap"}} onClick={handleSendOtp} disabled={loading || (otpSent && !error)}>
                 {otpSent ? "Resend OTP" : "Send OTP"}
               </button>
@@ -261,7 +269,7 @@ export function MentorPayout({ userId, onDone, onBack }) {
             
             {otpSent && (
               <>
-                <label style={{...s.label, fontSize: "13px"}}>Enter OTP from Email (Check Terminal logs to test!)</label>
+                <label style={{...s.label, fontSize: "13px"}}>Enter OTP from Email</label>
                 <div style={{ display: "flex", gap: "8px" }}>
                   <input style={{...s.input, marginBottom: 0}} value={otpCode} onChange={(e) => setOtpCode(e.target.value)} placeholder="123456" />
                   <button style={{...s.btn(accent), padding: "8px 12px", fontSize: "13px", whiteSpace: "nowrap"}} onClick={handleVerifyOtp} disabled={loading}>

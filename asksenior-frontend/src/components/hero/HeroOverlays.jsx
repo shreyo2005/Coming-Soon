@@ -136,8 +136,8 @@ export function ChatOverlay({ scrollT }) {
   const op = easeOut3(raw)
   if (op < 0.01) return null
 
-  const msgOp = easeOut3(clamp((scrollT - 0.64) / 0.06, 0, 1))
-  const noRepOp = easeOut3(clamp((scrollT - 0.70) / 0.05, 0, 1))
+  const msgOp = easeOut3(clamp((scrollT - 0.58) / 0.06, 0, 1))
+  const noRepOp = easeOut3(clamp((scrollT - 0.58) / 0.06, 0, 1))
 
   return (
     <div style={{

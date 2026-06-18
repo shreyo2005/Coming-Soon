@@ -3,7 +3,7 @@ import { api } from "../api/api";
 import { s, colors, ROLE } from "../theme";
 import { Logo, ErrorBox, BackButton } from "../components/common";
 
-export default function StudentForm({ userId, onDone, onBack }) {
+export default function StudentForm({ userId, onDone, onBack, onExplore }) {
   const [f, setF] = useState({ fullName: "", phone: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

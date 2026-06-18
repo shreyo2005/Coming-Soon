@@ -34,6 +34,12 @@ export default function App() {
     }
   };
 
+  const handleExplore = () => {
+    setSkipHero(true);
+    setScreen("landing");
+    setTimeout(() => document.getElementById("problem-section")?.scrollIntoView({behavior: "smooth"}), 100);
+  };
+
   switch (screen) {
     case "landing":
       return <Landing go={go} skipHero={skipHero} />;
@@ -42,25 +48,21 @@ export default function App() {
     case "signin":
       return <SignIn role={role} onDone={afterSignIn} onBack={() => { setSkipHero(true); setScreen("landing"); }} />;
     case "student-form":
-      return <StudentForm userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("signin")} />;
+      return <StudentForm userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("signin")} onExplore={handleExplore} />;
     case "insider-college":
-      return <InsiderCollege userId={userId} onNext={() => setScreen("insider-profile")} onBack={() => setScreen("signin")} />;
+      return <InsiderCollege userId={userId} onNext={() => setScreen("insider-profile")} onBack={() => setScreen("signin")} onExplore={handleExplore} />;
     case "insider-profile":
-      return <InsiderProfile userId={userId} onNext={() => setScreen("insider-payout")} onBack={() => setScreen("insider-college")} />;
+      return <InsiderProfile userId={userId} onNext={() => setScreen("insider-payout")} onBack={() => setScreen("insider-college")} onExplore={handleExplore} />;
     case "insider-payout":
-      return <InsiderPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("insider-profile")} />;
+      return <InsiderPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("insider-profile")} onExplore={handleExplore} />;
     case "mentor-company":
-      return <MentorCompany userId={userId} onNext={() => setScreen("mentor-profile")} onBack={() => setScreen("signin")} />;
+      return <MentorCompany userId={userId} onNext={() => setScreen("mentor-profile")} onBack={() => setScreen("signin")} onExplore={handleExplore} />;
     case "mentor-profile":
-      return <MentorProfile userId={userId} onNext={() => setScreen("mentor-payout")} onBack={() => setScreen("mentor-company")} />;
+      return <MentorProfile userId={userId} onNext={() => setScreen("mentor-payout")} onBack={() => setScreen("mentor-company")} onExplore={handleExplore} />;
     case "mentor-payout":
-      return <MentorPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("mentor-profile")} />;
+      return <MentorPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("mentor-profile")} onExplore={handleExplore} />;
     case "success":
-      return <Success role={role} email={email} onExplore={() => {
-        setSkipHero(true);
-        setScreen("landing");
-        setTimeout(() => document.getElementById("problem-section")?.scrollIntoView({behavior: "smooth"}), 100);
-      }} />;
+      return <Success role={role} email={email} onExplore={handleExplore} />;
     default:
       return <Landing go={go} skipHero={skipHero} />;
   }

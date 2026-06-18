@@ -10,7 +10,7 @@ const F = {
 
 export function ProblemSection() {
   const cards = [
-    { icon: '⚠️', title: 'Commission-Based Counselling', accent: '#EF4444', body: "Many counsellors are paid by colleges for admissions. Their focus is often on getting Learners admitted, not on helping them choose the best option for their future." },
+    { icon: '🎯', title: 'Commission-Based Counselling', accent: '#EF4444', body: "Many counsellors are paid by colleges for admissions. Their focus is often on getting Learners admitted, not on helping them choose the best option for their future." },
     { icon: '📢', title: 'Slow Mentor Responses', accent: '#F59E0B', body: "Finding mentors online is easy, but getting a reply isn’t. Learners often wait days or never hear back, leading to delays and missed opportunities" },
     { icon: '📅', title: 'Outdated Information', accent: '#7C3AED', body: "Most information online is old, confusing, or influenced by someone’s agenda. Learners struggle to find clear and reliable guidance for today’s decisions" },
   ]
@@ -81,9 +81,9 @@ function RoleCard({ r, go }) {
 
 export function RolesSection({ go }) {
   const roles = [
-    { key: 'Learner', label: 'Learner', color: '#059669', rgb: '5,150,105', headline: 'Real advice\nbefore you choose.', body: "Before you pick a college, a branch, a career — talk to someone who's already living it. Verified. Accountable. Real.", stats: ['Sessions from ₹19', 'Verified Insiders & Mentors', 'Same-day response', 'Instant booking & live QnA'], cta: 'Join as a Learner' },
-    { key: 'insider', label: 'Insider', color: '#D97706', rgb: '217,119,6', headline: 'Your experience\nis worth money.', body: "You've navigated what thousands of Learners are figuring out. Your knowledge of college life, placements — it has real value.", stats: ['₹99–299 per session', 'Set your own pricing', 'Only 3–4 hrs/week work', 'Paid directly to UPI'], cta: 'Become a college Insider' },
-    { key: 'mentor', label: 'Mentor', color: '#7C3AED', rgb: '124,58,237', headline: 'Your industry\nknowledge matters.', body: "Tell Learners what you wish someone had told you. Earn consistently on the side without competing with what you're building.", stats: ['₹249–499 per session', 'Set your own schedule', 'Strictly vetted Learners'], cta: 'Become a Mentor' },
+    { key: 'Learner', label: 'Learner', color: '#059669', rgb: '5,150,105', headline: 'Real advice\nbefore you choose.', body: "Before you pick a college, a branch, a career — talk to someone who's already living it. Verified. Accountable. Real.", stats: ['Sessions from ₹19/min', 'Verified Insiders & Mentors', 'Same-day response', 'Instant booking & live QnA'], cta: 'Join as a Learner' },
+    { key: 'insider', label: 'Insider', color: '#D97706', rgb: '217,119,6', headline: 'Your experience\nis worth money.', body: "You've navigated what thousands of Learners are figuring out. Your knowledge of college life, placements — it has real value.", stats: ['₹99–299 per session', 'Set your own pricing', 'Only 3–4 hrs/week work', 'Paid directly to UPI'], cta: 'Join as a college insider' },
+    { key: 'mentor', label: 'Mentor', color: '#7C3AED', rgb: '124,58,237', headline: 'Your industry\nknowledge matters.', body: "Tell Learners what you wish someone had told you. Earn consistently on the side without competing with what you're building.", stats: ['₹249–499 per session', 'Set your own schedule', 'Strictly vetted Learners'], cta: 'Join as a mentor' },
   ]
   return (
     <section style={{ background: '#FAF8F4', padding: '100px 24px' }}>
@@ -119,10 +119,10 @@ export function WaitlistSection({ cd, go }) {
             Join as a Learner →
           </button>
           <button onClick={() => go('insider')} style={{ background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '13px', fontFamily: 'Syne,sans-serif', fontSize: 14, fontWeight: 700, color: '#fff', cursor: 'pointer', transition: 'opacity 0.2s', letterSpacing: '0.02em' }}>
-            Become a college Insider →
+            Join as a college insider →
           </button>
           <button onClick={() => go('mentor')} style={{ background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '13px', fontFamily: 'Syne,sans-serif', fontSize: 14, fontWeight: 700, color: '#fff', cursor: 'pointer', transition: 'opacity 0.2s', letterSpacing: '0.02em' }}>
-            Become a Mentor →
+            Join as a mentor →
           </button>
         </div>
       </div>

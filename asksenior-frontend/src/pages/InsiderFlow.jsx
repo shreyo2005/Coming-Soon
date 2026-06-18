@@ -7,7 +7,7 @@ import PhotoCapture from "../components/PhotoCapture";
 const accent = ROLE.insider.accent;
 
 // Step 1 — College
-export function InsiderCollege({ userId, onNext, onBack }) {
+export function InsiderCollege({ userId, onNext, onBack, onExplore }) {
   const [f, setF] = useState({ college: "", course: "", customCourse: "", year: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -53,7 +53,7 @@ export function InsiderCollege({ userId, onNext, onBack }) {
 }
 
 // Step 2 — Profile + photo
-export function InsiderProfile({ userId, onNext, onBack }) {
+export function InsiderProfile({ userId, onNext, onBack, onExplore }) {
   const [f, setF] = useState({ fullName: "", phone: "", bio: "", linkedInUrl: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -106,7 +106,7 @@ export function InsiderProfile({ userId, onNext, onBack }) {
 }
 
 // Step 3 — Payout with live UPI verify
-export function InsiderPayout({ userId, onDone, onBack }) {
+export function InsiderPayout({ userId, onDone, onBack, onExplore }) {
   const [f, setF] = useState({ 
     upiId: "", 
     verificationMethod: "", 
@@ -161,6 +161,15 @@ export function InsiderPayout({ userId, onDone, onBack }) {
     if (!f.eduEmail || !(f.eduEmail.endsWith(".edu") || f.eduEmail.endsWith(".edu.in") || f.eduEmail.endsWith(".ac.in"))) {
       return setError("Please enter a valid .edu or .ac.in email address");
     }
+    const domain = f.eduEmail.split('@')[1].toLowerCase();
+    const freeDomains = ["gmail.com", "yahoo.com", "yahoo.in", "hotmail.com", "outlook.com", "live.com", "aol.com", "icloud.com", "protonmail.com", "mail.com"];
+    if (freeDomains.includes(domain)) {
+      return setError("Please use your official college email address. Personal emails (like Gmail or Yahoo) are not allowed.");
+    }
+    
+    // Prevent multiple clicks
+    if (sendingOtp || (otpSent && countdown > 0)) return;
+    
     try {
       setSendingOtp(true); setError("");
       await api.post(`/insider/${userId}/send-otp`, { eduEmail: f.eduEmail });
@@ -238,7 +247,13 @@ export function InsiderPayout({ userId, onDone, onBack }) {
           <div style={{ marginBottom: "16px", padding: "12px", background: "#f8fafc", borderRadius: "8px", border: `1px solid ${colors.border}` }}>
             <label style={{...s.label, fontSize: "13px"}}>College Email ID (.edu or .ac.in)</label>
             <div style={{ display: "flex", gap: "8px", marginBottom: otpSent ? "12px" : "0" }}>
-              <input style={{...s.input, marginBottom: 0}} value={f.eduEmail} disabled={otpSent} onChange={(e) => set("eduEmail")(e.target.value)} placeholder="student@college.edu" />
+              <input style={{...s.input, marginBottom: 0}} value={f.eduEmail} onChange={(e) => {
+                set("eduEmail")(e.target.value);
+                if (otpSent) {
+                  setOtpSent(false);
+                  setCountdown(0);
+                }
+              }} placeholder="student@college.edu" />
               <button 
                 style={{
                   ...s.btn(otpSent ? "#2e7d32" : accent), 
