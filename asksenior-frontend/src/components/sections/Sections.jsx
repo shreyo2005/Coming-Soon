@@ -15,7 +15,7 @@ export function ProblemSection() {
     { icon: '📅', title: 'Outdated Information', accent: '#7C3AED', body: "Most information online is old, confusing, or influenced by someone’s agenda. Learners struggle to find clear and reliable guidance for today’s decisions" },
   ]
   return (
-    <section style={{ background: '#FAF8F4', padding: '100px 24px' }}>
+    <section id="problem-section" style={{ background: '#FAF8F4', padding: '100px 24px' }}>
       <div style={F.wrap}>
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
           <p style={{ ...F.eyebrow, color: '#EF4444' }}>The real problem</p>

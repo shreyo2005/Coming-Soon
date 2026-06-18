@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 import { s, colors, ROLE } from "../theme";
 
-export default function Success({ role, email }) {
+export default function Success({ role, email, onExplore }) {
   const accent = ROLE[role]?.accent || ROLE.student.accent;
   const [windowDimension, setWindowDimension] = useState({width: window.innerWidth, height: window.innerHeight});
 
@@ -75,13 +75,27 @@ export default function Success({ role, email }) {
         </div>
 
         <div style={{ textAlign: "center", marginTop: "10px" }}>
+          <button onClick={onExplore} style={{
+             background: colors.bg,
+             color: colors.text,
+             border: `1.5px solid ${colors.border}`,
+             borderRadius: "24px",
+             padding: "12px 24px",
+             fontSize: "15px",
+             fontWeight: "700",
+             cursor: "pointer",
+             marginBottom: "32px",
+             transition: "all 0.2s"
+          }}>
+            Explore more
+          </button>
           <p style={{ fontSize: "15px", fontWeight: "800", color: colors.text, letterSpacing: "1px", marginBottom: "16px" }}>
             JOIN OUR REVOLUTION
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" style={socialBtnStyle("linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)")}>Instagram</a>
-            <a href="https://x.com" target="_blank" rel="noreferrer" style={socialBtnStyle("#000000")}>X</a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={socialBtnStyle("#0A66C2")}>LinkedIn</a>
+            <a href="https://www.instagram.com/ogsenior.official?igsh=OHA4NTUycDl6MHNu" target="_blank" rel="noreferrer" style={socialBtnStyle("linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)")}>Instagram</a>
+            <a href="https://twitter.com/_ogsenior" target="_blank" rel="noreferrer" style={socialBtnStyle("#000000")}>X</a>
+            <a href="https://www.linkedin.com/company/117075085/admin/settings/" target="_blank" rel="noreferrer" style={socialBtnStyle("#0A66C2")}>LinkedIn</a>
           </div>
         </div>
 

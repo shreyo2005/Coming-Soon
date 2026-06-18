@@ -54,7 +54,10 @@ export default function App() {
     case "mentor-payout":
       return <MentorPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("mentor-profile")} />;
     case "success":
-      return <Success role={role} email={email} />;
+      return <Success role={role} email={email} onExplore={() => {
+        setScreen("landing");
+        setTimeout(() => document.getElementById("problem-section")?.scrollIntoView({behavior: "smooth"}), 100);
+      }} />;
     default:
       return <Landing go={go} />;
   }
