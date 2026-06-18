@@ -15,7 +15,8 @@ export default function App() {
 
   const go = (r) => {
     if (r === "admin") { setScreen("admin"); return; }
-    setRole(r);
+    const mapped = (r === "Learner" || r === "learner") ? "student" : r;
+    setRole(mapped);
     setScreen("signin");
   };
 

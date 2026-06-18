@@ -49,7 +49,7 @@ export function Hero({ scrollT, setScrollT, go }) {
     }
 
     const handleWheel = (e) => {
-      if (window.scrollY > 5) return;
+      if (stepRef.current === 4 && window.scrollY > 5) return;
 
       const now = Date.now()
 
@@ -85,7 +85,7 @@ export function Hero({ scrollT, setScrollT, go }) {
     let touchStartY = 0
     const handleTouchStart = (e) => { touchStartY = e.touches[0].clientY }
     const handleTouchMove = (e) => {
-      if (window.scrollY > 5) return;
+      if (stepRef.current === 4 && window.scrollY > 5) return;
       const touchY = e.touches[0].clientY
       const deltaY = touchStartY - touchY
 
