@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { api } from "../api/api";
 import { s, colors, ROLE } from "../theme";
-import { Logo, ErrorBox } from "../components/common";
+import { Logo, ErrorBox, BackButton } from "../components/common";
 
-export default function StudentForm({ userId, onDone }) {
+export default function StudentForm({ userId, onDone, onBack }) {
   const [f, setF] = useState({ fullName: "", phone: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -28,6 +28,7 @@ export default function StudentForm({ userId, onDone }) {
 
   return (
     <div style={s.page}>
+      <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
         <h2 style={s.h2}>Almost there!</h2>

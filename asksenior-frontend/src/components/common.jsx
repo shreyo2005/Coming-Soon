@@ -134,3 +134,44 @@ export function CoursePicker({ course, customCourse, onCourse, onCustom }) {
     </>
   );
 }
+
+export function BackButton({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        top: 'clamp(16px, 4vw, 32px)',
+        left: 'clamp(16px, 4vw, 32px)',
+        width: '44px',
+        height: '44px',
+        borderRadius: '50%',
+        border: '1.5px solid #E5E7EB',
+        background: '#ffffff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+        transition: 'all 0.2s',
+        zIndex: 100,
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.transform = 'translateX(-2px)';
+        e.currentTarget.style.borderColor = '#111111';
+        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.08)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transform = 'translateX(0)';
+        e.currentTarget.style.borderColor = '#E5E7EB';
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.03)';
+      }}
+      aria-label="Go back"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </button>
+  );
+}

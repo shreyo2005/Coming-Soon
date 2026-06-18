@@ -63,3 +63,39 @@
 2026-06-17 21:56:02.354 IST [36471] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.421 s, sync=0.006 s, total=0.441 s; sync files=5, longest=0.005 s, average=0.002 s; distance=4 kB, estimate=384 kB
 2026-06-17 22:01:01.383 IST [36471] LOG:  checkpoint starting: time
 2026-06-17 22:01:01.673 IST [36471] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.227 s, sync=0.006 s, total=0.292 s; sync files=2, longest=0.006 s, average=0.003 s; distance=4 kB, estimate=346 kB
+2026-06-17 22:16:01.747 IST [36471] LOG:  checkpoint starting: time
+2026-06-17 22:16:03.380 IST [36471] LOG:  checkpoint complete: wrote 16 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.602 s, sync=0.013 s, total=1.634 s; sync files=7, longest=0.004 s, average=0.002 s; distance=60 kB, estimate=317 kB
+2026-06-17 23:38:38.733 IST [36469] LOG:  received smart shutdown request
+2026-06-17 23:38:38.740 IST [36469] LOG:  background worker "logical replication launcher" (PID 36476) exited with exit code 1
+2026-06-17 23:38:38.741 IST [36471] LOG:  shutting down
+2026-06-17 23:38:38.743 IST [36471] LOG:  checkpoint starting: shutdown immediate
+2026-06-17 23:38:38.754 IST [36471] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.005 s, sync=0.001 s, total=0.013 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=285 kB
+2026-06-17 23:38:38.770 IST [36469] LOG:  database system is shut down
+2026-06-18 17:17:49.035 IST [3967] LOG:  starting PostgreSQL 15.18 (Homebrew) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.6), 64-bit
+2026-06-18 17:17:49.036 IST [3967] LOG:  listening on IPv6 address "::1", port 5432
+2026-06-18 17:17:49.036 IST [3967] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2026-06-18 17:17:49.036 IST [3967] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2026-06-18 17:17:49.038 IST [3967] FATAL:  postmaster became multithreaded during startup
+2026-06-18 17:17:49.038 IST [3967] HINT:  Set the LC_ALL environment variable to a valid locale.
+2026-06-18 17:17:49.039 IST [3967] LOG:  database system is shut down
+2026-06-18 17:18:40.170 IST [3982] LOG:  starting PostgreSQL 15.18 (Homebrew) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.6), 64-bit
+2026-06-18 17:18:40.172 IST [3982] LOG:  listening on IPv6 address "::1", port 5432
+2026-06-18 17:18:40.172 IST [3982] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2026-06-18 17:18:40.172 IST [3982] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2026-06-18 17:18:40.175 IST [3985] LOG:  database system was shut down at 2026-06-17 23:38:38 IST
+2026-06-18 17:18:40.183 IST [3982] LOG:  database system is ready to accept connections
+2026-06-18 17:20:35.454 IST [3982] LOG:  received fast shutdown request
+2026-06-18 17:20:35.454 IST [3982] LOG:  aborting any active transactions
+2026-06-18 17:20:35.455 IST [3982] LOG:  background worker "logical replication launcher" (PID 3988) exited with exit code 1
+2026-06-18 17:20:35.455 IST [3983] LOG:  shutting down
+2026-06-18 17:20:35.455 IST [3983] LOG:  checkpoint starting: shutdown immediate
+2026-06-18 17:20:35.457 IST [3983] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.002 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB
+2026-06-18 17:20:35.459 IST [3982] LOG:  database system is shut down
+2026-06-18 17:20:45.736 IST [4031] LOG:  starting PostgreSQL 15.18 (Homebrew) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.6), 64-bit
+2026-06-18 17:20:45.738 IST [4031] LOG:  listening on IPv6 address "::1", port 5433
+2026-06-18 17:20:45.738 IST [4031] LOG:  listening on IPv4 address "127.0.0.1", port 5433
+2026-06-18 17:20:45.738 IST [4031] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5433"
+2026-06-18 17:20:45.741 IST [4034] LOG:  database system was shut down at 2026-06-18 17:20:35 IST
+2026-06-18 17:20:45.745 IST [4031] LOG:  database system is ready to accept connections
+2026-06-18 17:25:45.747 IST [4032] LOG:  checkpoint starting: time
+2026-06-18 17:25:46.365 IST [4032] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.613 s, sync=0.002 s, total=0.620 s; sync files=4, longest=0.001 s, average=0.001 s; distance=5 kB, estimate=5 kB

@@ -10,9 +10,9 @@ const F = {
 
 export function ProblemSection() {
   const cards = [
-    { icon: '⚠️', title: 'Advice with conflicts of interest', accent: '#EF4444', body: "Traditional counsellors are paid by colleges to send students there. Their incentive was never your future — it was their commission." },
-    { icon: '🔇', title: 'Silence from the people who matter', accent: '#F59E0B', body: "You messaged seniors on LinkedIn, WhatsApp, Reddit. Most never replied. Nobody had skin in the game." },
-    { icon: '📅', title: 'Outdated, biased, wrong', accent: '#7C3AED', body: "AI tells you what it thinks you want to hear. Google results from 2019. YouTube videos from coaching institutes with an agenda. Nobody telling you what's actually true right now." },
+    { icon: '⚠️', title: 'Commission-Based Counselling', accent: '#EF4444', body: "Many counsellors are paid by colleges for admissions. Their focus is often on getting Learners admitted, not on helping them choose the best option for their future." },
+    { icon: '📢', title: 'Slow Mentor Responses', accent: '#F59E0B', body: "Finding mentors online is easy, but getting a reply isn’t. Learners often wait days or never hear back, leading to delays and missed opportunities" },
+    { icon: '📅', title: 'Outdated Information', accent: '#7C3AED', body: "Most information online is old, confusing, or influenced by someone’s agenda. Learners struggle to find clear and reliable guidance for today’s decisions" },
   ]
   return (
     <section style={{ background: '#FAF8F4', padding: '100px 24px' }}>
@@ -38,8 +38,8 @@ export function ProblemSection() {
 export function HowItWorksSection() {
   const steps = [
     { n: '01', color: '#059669', label: 'Choose who you need', sub: 'Insider for college life,\nMentor for career decisions.' },
-    { n: '02', color: '#D97706', label: 'Book a session', sub: 'Starting at ₹19.\nInstant confirmation.' },
-    { n: '03', color: '#7C3AED', label: 'Get real answers', sub: 'No curation. No delay.\nHonest advice.' },
+    { n: '02', color: '#D97706', label: 'Book instantly', sub: 'Chat/audio/video sessions\nStarting from ₹19/min.\nInstant confirmation.' },
+    { n: '03', color: '#7C3AED', label: 'Get real answers', sub: 'Get clarity.\nAsk anything.\nGet answers from people who\'ve actually lived it.' },
   ]
   return (
     <section style={{ background: '#fff', padding: '100px 24px' }}>
@@ -47,7 +47,7 @@ export function HowItWorksSection() {
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
           <p style={{ ...F.eyebrow, color: '#7C3AED' }}>How it works</p>
           <h2 style={{ ...F.display, fontSize: 'clamp(26px,4vw,44px)', marginBottom: 14 }}>Three steps.<br />One honest conversation.</h2>
-          <p style={{ ...F.body, maxWidth: 460, margin: '0 auto' }}>We connect students with Insiders and Mentors who get paid for genuine advice. When real money is on the line, real answers follow.</p>
+          <p style={{ ...F.body, maxWidth: 460, margin: '0 auto' }}>We connect people with verified College Insiders and Career Mentors who have already walked the path you're considering.</p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', border: '1px solid #F3F4F6', borderRadius: 20, overflow: 'hidden', marginBottom: 0 }}>
           {steps.map((st, i) => (
@@ -81,9 +81,9 @@ function RoleCard({ r, go }) {
 
 export function RolesSection({ go }) {
   const roles = [
-    { key: 'student', label: 'Student', color: '#059669', rgb: '5,150,105', headline: 'Real advice\nbefore you choose.', body: "Before you pick a college, a branch, a career — talk to someone who's already living it. Verified. Accountable. Real.", stats: ['Sessions from ₹19', 'Verified Insiders & Mentors', 'Same-day response', 'Instant booking & live QnA'], cta: 'Join as a Student' },
-    { key: 'insider', label: 'Insider', color: '#D97706', rgb: '217,119,6', headline: 'Your experience\nis worth money.', body: "You've navigated what thousands of students are figuring out. Your knowledge of college life, placements — it has real value.", stats: ['₹150–300 per session', 'Set your own pricing', 'Only 3–4 hrs/week work', 'Paid directly to UPI'], cta: 'Become a college Insider' },
-    { key: 'mentor', label: 'Mentor', color: '#7C3AED', rgb: '124,58,237', headline: 'Your industry\nknowledge matters.', body: "Tell students what you wish someone had told you. Earn consistently on the side without competing with what you're building.", stats: ['₹150–300 per session', 'Set your own schedule', 'Strictly vetted students'], cta: 'Become a Mentor' },
+    { key: 'Learner', label: 'Learner', color: '#059669', rgb: '5,150,105', headline: 'Real advice\nbefore you choose.', body: "Before you pick a college, a branch, a career — talk to someone who's already living it. Verified. Accountable. Real.", stats: ['Sessions from ₹19', 'Verified Insiders & Mentors', 'Same-day response', 'Instant booking & live QnA'], cta: 'Join as a Learner' },
+    { key: 'insider', label: 'Insider', color: '#D97706', rgb: '217,119,6', headline: 'Your experience\nis worth money.', body: "You've navigated what thousands of Learners are figuring out. Your knowledge of college life, placements — it has real value.", stats: ['₹99–299 per session', 'Set your own pricing', 'Only 3–4 hrs/week work', 'Paid directly to UPI'], cta: 'Become a college Insider' },
+    { key: 'mentor', label: 'Mentor', color: '#7C3AED', rgb: '124,58,237', headline: 'Your industry\nknowledge matters.', body: "Tell Learners what you wish someone had told you. Earn consistently on the side without competing with what you're building.", stats: ['₹249–499 per session', 'Set your own schedule', 'Strictly vetted Learners'], cta: 'Become a Mentor' },
   ]
   return (
     <section style={{ background: '#FAF8F4', padding: '100px 24px' }}>
@@ -101,7 +101,7 @@ export function RolesSection({ go }) {
 }
 
 export function WaitlistSection({ cd, go }) {
-  const [form, setForm] = useState({ email: '', role: 'student', done: false, busy: false })
+  const [form, setForm] = useState({ email: '', role: 'Learner', done: false, busy: false })
   const [foc, setFoc] = useState(false)
   const submit = () => { go(form.role); }
   const ticks = [{ v: cd?.d || 0, l: 'Days', c: '#059669' }, { v: cd?.h || 0, l: 'Hours', c: '#D97706' }, { v: cd?.m || 0, l: 'Mins', c: '#7C3AED' }, { v: cd?.s || 0, l: 'Secs', c: 'rgba(255,255,255,0.3)' }]
@@ -115,8 +115,8 @@ export function WaitlistSection({ cd, go }) {
         <h2 style={{ ...F.display, fontSize: 'clamp(24px,4vw,38px)', color: '#fff', marginBottom: 8 }}>Be the first in.</h2>
         <p style={{ ...F.body, color: 'rgba(255,255,255,0.4)', marginBottom: 28 }}>Early users get priority access on launch day.</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 9, maxWidth: 360, margin: '0 auto' }}>
-          <button onClick={() => go('student')} style={{ background: 'linear-gradient(135deg,#059669,#D97706)', border: 'none', borderRadius: 10, padding: '13px', fontFamily: 'Syne,sans-serif', fontSize: 14, fontWeight: 700, color: '#fff', cursor: 'pointer', transition: 'opacity 0.2s', letterSpacing: '0.02em', boxShadow: '0 4px 20px rgba(5,150,105,0.3)' }}>
-            Join as a Student →
+          <button onClick={() => go('Learner')} style={{ background: 'linear-gradient(135deg,#059669,#D97706)', border: 'none', borderRadius: 10, padding: '13px', fontFamily: 'Syne,sans-serif', fontSize: 14, fontWeight: 700, color: '#fff', cursor: 'pointer', transition: 'opacity 0.2s', letterSpacing: '0.02em', boxShadow: '0 4px 20px rgba(5,150,105,0.3)' }}>
+            Join as a Learner →
           </button>
           <button onClick={() => go('insider')} style={{ background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '13px', fontFamily: 'Syne,sans-serif', fontSize: 14, fontWeight: 700, color: '#fff', cursor: 'pointer', transition: 'opacity 0.2s', letterSpacing: '0.02em' }}>
             Become a college Insider →

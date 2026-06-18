@@ -28,7 +28,7 @@ export const s = {
   page: {
     minHeight: "100vh", background: colors.bg, display: "flex",
     flexDirection: "column", alignItems: "center", justifyContent: "center",
-    padding: "40px 24px", fontFamily: FONT,
+    padding: "40px 24px", fontFamily: FONT, position: "relative",
   },
   card: {
     background: colors.surface, border: `1px solid ${colors.borderSoft}`,

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../api/api";
 import { s, colors, ROLE } from "../theme";
-import { Logo, ErrorBox, Progress, CollegePicker, CoursePicker } from "../components/common";
+import { Logo, ErrorBox, Progress, CollegePicker, CoursePicker, BackButton } from "../components/common";
 import PhotoCapture from "../components/PhotoCapture";
 
 const accent = ROLE.insider.accent;
@@ -28,6 +28,7 @@ export function InsiderCollege({ userId, onNext, onBack }) {
 
   return (
     <div style={s.page}>
+      <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
         <Progress step={0} total={3} accent={ROLE.insider.accent} />
@@ -76,6 +77,7 @@ export function InsiderProfile({ userId, onNext, onBack }) {
 
   return (
     <div style={s.page}>
+      <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
         <Progress step={1} total={3} accent={ROLE.insider.accent} />
@@ -212,6 +214,7 @@ export function InsiderPayout({ userId, onDone, onBack }) {
 
   return (
     <div style={s.page}>
+      <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
         <Progress step={2} total={3} accent={ROLE.insider.accent} />

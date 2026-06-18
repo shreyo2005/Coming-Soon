@@ -30,6 +30,27 @@ export default function Landing({ go }) {
   const [loaded, setLoaded] = useState(false)
   const countdown = useCountdown()
 
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    const html = document.documentElement;
+    const prevScrollBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    document.body.style.overflow = 'auto';
+
+    const t = setTimeout(() => {
+      if (prevScrollBehavior) {
+        html.style.scrollBehavior = prevScrollBehavior;
+      } else {
+        html.style.removeProperty('scroll-behavior');
+      }
+    }, 50);
+
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <>
       <GlobalStyles />

@@ -25,11 +25,11 @@ export function Nav({ cd, scrollT }) {
         alt="OG Senior"
         style={{ height: 44, width: 'auto', objectFit: 'contain', display: 'block' }}
       />
-      <div className="nav-status" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#059669', animation: 'ogpulse 2s ease-in-out infinite' }} />
+      <div className="nav-status" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: '#059669', animation: 'ogpulse 2s ease-in-out infinite' }} />
         <span style={{
-          fontFamily: 'DM Sans,sans-serif', fontSize: 12.5,
-          color: 'rgba(80,55,25,0.55)',
+          fontFamily: 'DM Sans,sans-serif', fontSize: 14.5, fontWeight: 700,
+          color: 'rgba(80,55,25,0.85)',
         }}>
           Launching July 1 · {cd?.d || 0}d {String(cd?.h || 0).padStart(2, '0')}h away
         </span>

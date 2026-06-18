@@ -39,15 +39,15 @@ export default function App() {
     case "signin":
       return <SignIn role={role} onDone={afterSignIn} onBack={() => setScreen("landing")} />;
     case "student-form":
-      return <StudentForm userId={userId} onDone={() => setScreen("success")} />;
+      return <StudentForm userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("signin")} />;
     case "insider-college":
-      return <InsiderCollege userId={userId} onNext={() => setScreen("insider-profile")} onBack={() => setScreen("landing")} />;
+      return <InsiderCollege userId={userId} onNext={() => setScreen("insider-profile")} onBack={() => setScreen("signin")} />;
     case "insider-profile":
       return <InsiderProfile userId={userId} onNext={() => setScreen("insider-payout")} onBack={() => setScreen("insider-college")} />;
     case "insider-payout":
       return <InsiderPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("insider-profile")} />;
     case "mentor-company":
-      return <MentorCompany userId={userId} onNext={() => setScreen("mentor-profile")} onBack={() => setScreen("landing")} />;
+      return <MentorCompany userId={userId} onNext={() => setScreen("mentor-profile")} onBack={() => setScreen("signin")} />;
     case "mentor-profile":
       return <MentorProfile userId={userId} onNext={() => setScreen("mentor-payout")} onBack={() => setScreen("mentor-company")} />;
     case "mentor-payout":

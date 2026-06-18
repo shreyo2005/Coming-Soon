@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "../api/api";
 import { s, colors, ROLE } from "../theme";
-import { Logo, ErrorBox, Progress } from "../components/common";
+import { Logo, ErrorBox, Progress, BackButton } from "../components/common";
 import PhotoCapture from "../components/PhotoCapture";
 
 const accent = ROLE.mentor.accent;
@@ -36,6 +36,7 @@ export function MentorCompany({ userId, onNext, onBack }) {
 
   return (
     <div style={s.page}>
+      <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
         <Progress step={0} total={3} accent={ROLE.mentor.accent} />
@@ -96,6 +97,7 @@ export function MentorProfile({ userId, onNext, onBack }) {
 
   return (
     <div style={s.page}>
+      <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
         <Progress step={1} total={3} accent={ROLE.mentor.accent} />
@@ -227,6 +229,7 @@ export function MentorPayout({ userId, onDone, onBack }) {
 
   return (
     <div style={s.page}>
+      <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
         <Progress step={2} total={3} accent={ROLE.mentor.accent} />

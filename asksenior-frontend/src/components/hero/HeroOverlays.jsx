@@ -33,9 +33,9 @@ export function StoryPanel({ scrollT }) {
       paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
     }}>
       <div style={{
-        fontFamily: 'DM Sans,sans-serif', fontSize: 10.5, fontWeight: 600,
+        fontFamily: 'DM Sans,sans-serif', fontSize: 12.5, fontWeight: 800,
         letterSpacing: '0.16em', textTransform: 'uppercase',
-        color: 'rgba(120,90,55,0.55)', marginBottom: 10,
+        color: 'rgba(120,90,55,0.85)', marginBottom: 10,
       }}>
         Stage {active.stage}
       </div>
@@ -66,9 +66,10 @@ export function StoryPanel({ scrollT }) {
       {active.body && (
         <p style={{
           fontFamily: 'DM Sans,sans-serif',
-          fontSize: 'clamp(13px,1.5vw,16px)',
-          color: 'rgba(60,40,20,0.65)',
-          textAlign: 'center', maxWidth: 400, padding: '0 24px',
+          fontSize: 'clamp(15px,1.7vw,18px)',
+          fontWeight: 700,
+          color: '#2A1C0C',
+          textAlign: 'center', maxWidth: 450, padding: '0 24px',
           lineHeight: 1.65, margin: 0,
         }}>
           {active.body}
@@ -92,9 +93,9 @@ export function BookOverlay({ scrollT }) {
       width: 'clamp(130px,18vw,210px)',
     }}>
       <div style={{
-        fontFamily: 'DM Sans,sans-serif', fontSize: 'clamp(7px,0.9vw,10px)',
-        fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase',
-        color: 'rgba(60,40,18,0.40)',
+        fontFamily: 'DM Sans,sans-serif', fontSize: 'clamp(11px,1.2vw,14px)',
+        fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase',
+        color: '#4A2F13',
         marginBottom: 7,
       }}>
         Chapter I
@@ -102,25 +103,26 @@ export function BookOverlay({ scrollT }) {
 
       <div style={{
         fontFamily: 'Georgia,"Times New Roman",serif',
-        fontSize: 'clamp(15px,2.2vw,26px)',
-        fontWeight: 700, lineHeight: 1.25,
-        color: '#2A1C0C',
+        fontSize: 'clamp(18px,2.6vw,30px)',
+        fontWeight: 800, lineHeight: 1.25,
+        color: '#1A0E04',
         letterSpacing: '-0.01em',
       }}>
         What after<br />12th??
       </div>
 
       <div style={{
-        width: '60%', height: 1,
-        background: 'rgba(60,35,10,0.22)',
+        width: '60%', height: 1.5,
+        background: '#4A2F13',
         margin: '9px 0',
       }} />
 
       <div style={{
         fontFamily: 'Georgia,"Times New Roman",serif',
-        fontSize: 'clamp(9px,1.1vw,12.5px)',
-        color: 'rgba(60,40,20,0.78)',
+        fontSize: 'clamp(12px,1.4vw,16px)',
+        color: '#1A0E04',
         lineHeight: 1.55,
+        fontWeight: 700,
         fontStyle: 'italic',
       }}>
         The question every student carries
@@ -153,11 +155,12 @@ export function ChatOverlay({ scrollT }) {
           fontFamily: 'Syne,sans-serif', fontSize: 9, fontWeight: 800, color: '#EEE4D4',
         }}>R</div>
         <div style={{
-          background: 'rgba(42,28,12,0.78)',
+          background: 'rgba(26,17,8,0.95)',
           borderRadius: '10px 10px 10px 2px',
-          padding: '7px 10px',
-          fontFamily: 'DM Sans,sans-serif', fontSize: 'clamp(9px,1.1vw,11px)',
-          color: '#E8D8C0',
+          padding: '8px 12px',
+          fontFamily: 'DM Sans,sans-serif', fontSize: 'clamp(11px,1.3vw,13px)',
+          color: '#FFF2DB',
+          fontWeight: 700,
           lineHeight: 1.4,
         }}>
           Busy rn, talk to you<br />later...
@@ -170,15 +173,16 @@ export function ChatOverlay({ scrollT }) {
         transform: `translateY(${lerp(6, 0, msgOp)}px)`,
       }}>
         <div style={{
-          background: 'rgba(92,48,12,0.85)',
+          background: 'rgba(64,31,4,0.95)',
           borderRadius: '10px 10px 2px 10px',
-          padding: '7px 10px',
-          fontFamily: 'DM Sans,sans-serif', fontSize: 'clamp(9px,1.1vw,11px)',
-          color: '#F0E0C4', lineHeight: 1.4, textAlign: 'right',
+          padding: '8px 12px',
+          fontFamily: 'DM Sans,sans-serif', fontSize: 'clamp(11px,1.3vw,13px)',
+          color: '#FFE8C2', lineHeight: 1.4, textAlign: 'right',
+          fontWeight: 700,
         }}>
           Which branch should I take?<br />
-          <span style={{ opacity: 0.8 }}>Please reply bhaiya 🙏</span>
-          <div style={{ fontSize: 9, color: 'rgba(240,220,180,0.45)', marginTop: 3 }}>
+          <span style={{ opacity: 0.9 }}>Please reply bhaiya 🙏</span>
+          <div style={{ fontSize: 10, color: 'rgba(255,220,180,0.7)', marginTop: 3, fontWeight: 800 }}>
             ✓✓ Seen
           </div>
         </div>
@@ -186,12 +190,13 @@ export function ChatOverlay({ scrollT }) {
 
       <div style={{
         opacity: noRepOp, alignSelf: 'center',
-        background: 'rgba(42,28,12,0.12)',
-        border: '1px solid rgba(42,28,12,0.18)',
-        borderRadius: 100, padding: '4px 12px',
-        fontFamily: 'DM Sans,sans-serif', fontSize: 'clamp(8px,1.0vw,10px)',
-        color: 'rgba(42,28,12,0.55)',
+        background: 'rgba(42,28,12,0.22)',
+        border: '1.5px solid rgba(42,28,12,0.5)',
+        borderRadius: 100, padding: '6px 16px',
+        fontFamily: 'DM Sans,sans-serif', fontSize: 'clamp(10px,1.2vw,12px)',
+        color: 'rgba(42,28,12,0.9)',
         fontStyle: 'italic',
+        fontWeight: 800,
       }}>
         No reply... 😔
       </div>
@@ -277,7 +282,7 @@ export function HeroCTA({ scrollT, go }) {
             display: 'inline-block', animation: 'ogpulse 2s ease-in-out infinite',
           }} />
           <span style={{ fontFamily: 'DM Sans,sans-serif', fontSize: 12.5, color: '#059669', fontWeight: 500 }}>
-            Peer mentorship for Indian students
+            Peer mentorship for students & professionals
           </span>
         </div>
 
@@ -307,9 +312,9 @@ export function HeroCTA({ scrollT, go }) {
 
         <div className="hero-cta-buttons" style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
-            { label: "I'm a School Student", color: '#059669', role: 'student', shadow: 'rgba(5,150,105,0.35)' },
-            { label: "Become a college Insider", color: '#D97706', role: 'insider', shadow: 'rgba(217,119,6,0.35)' },
-            { label: "Become a Mentor", color: '#7C3AED', role: 'mentor', shadow: 'rgba(124,58,237,0.35)' },
+            { label: "I’m a learner", color: '#059669', role: 'student', shadow: 'rgba(5,150,105,0.35)' },
+            { label: "I’m a College Insider", color: '#D97706', role: 'insider', shadow: 'rgba(217,119,6,0.35)' },
+            { label: "I’m a Career Mentor", color: '#7C3AED', role: 'mentor', shadow: 'rgba(124,58,237,0.35)' },
           ].map(b => (
             <button key={b.label} onClick={() => go(b.role)}
               style={{

@@ -257,7 +257,7 @@ export function ParticleCloud({ scrollT }) {
       <Html position={nodePositions[1]} center>
         <div className="ios-tag" style={{ color: '#059669' }}>
           <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#059669', marginRight: 6, marginBottom: 1 }}></span>
-          Student
+          Learner
         </div>
       </Html>
       <Html position={nodePositions[2]} center>

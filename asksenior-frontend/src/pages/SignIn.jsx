@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "../api/api";
 import { s, ROLE } from "../theme";
-import { Logo, ErrorBox } from "../components/common";
+import { Logo, ErrorBox, BackButton } from "../components/common";
 
 export default function SignIn({ role, onDone, onBack }) {
   const [email, setEmail] = useState("");
@@ -24,6 +24,7 @@ export default function SignIn({ role, onDone, onBack }) {
 
   return (
     <div style={s.page}>
+      <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
         <h2 style={s.h2}>Sign in to continue</h2>
