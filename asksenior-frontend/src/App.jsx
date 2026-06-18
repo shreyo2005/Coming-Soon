@@ -12,11 +12,13 @@ export default function App() {
   const [role, setRole] = useState(null);
   const [userId, setUserId] = useState(null);
   const [email, setEmail] = useState("");
+  const [skipHero, setSkipHero] = useState(false);
 
   const go = (r) => {
     if (r === "admin") { setScreen("admin"); return; }
     const mapped = (r === "Learner" || r === "learner") ? "student" : r;
     setRole(mapped);
+    setSkipHero(true);
     setScreen("signin");
   };
 
@@ -34,11 +36,11 @@ export default function App() {
 
   switch (screen) {
     case "landing":
-      return <Landing go={go} />;
+      return <Landing go={go} skipHero={skipHero} />;
     case "admin":
-      return <AdminDashboard onBack={() => setScreen("landing")} />;
+      return <AdminDashboard onBack={() => { setSkipHero(true); setScreen("landing"); }} />;
     case "signin":
-      return <SignIn role={role} onDone={afterSignIn} onBack={() => setScreen("landing")} />;
+      return <SignIn role={role} onDone={afterSignIn} onBack={() => { setSkipHero(true); setScreen("landing"); }} />;
     case "student-form":
       return <StudentForm userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("signin")} />;
     case "insider-college":
@@ -55,10 +57,11 @@ export default function App() {
       return <MentorPayout userId={userId} onDone={() => setScreen("success")} onBack={() => setScreen("mentor-profile")} />;
     case "success":
       return <Success role={role} email={email} onExplore={() => {
+        setSkipHero(true);
         setScreen("landing");
         setTimeout(() => document.getElementById("problem-section")?.scrollIntoView({behavior: "smooth"}), 100);
       }} />;
     default:
-      return <Landing go={go} />;
+      return <Landing go={go} skipHero={skipHero} />;
   }
 }

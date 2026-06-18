@@ -99,3 +99,5 @@
 2026-06-18 17:20:45.745 IST [4031] LOG:  database system is ready to accept connections
 2026-06-18 17:25:45.747 IST [4032] LOG:  checkpoint starting: time
 2026-06-18 17:25:46.365 IST [4032] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.613 s, sync=0.002 s, total=0.620 s; sync files=4, longest=0.001 s, average=0.001 s; distance=5 kB, estimate=5 kB
+2026-06-18 18:10:45.337 IST [4032] LOG:  checkpoint starting: time
+2026-06-18 18:10:45.446 IST [4032] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.103 s, sync=0.001 s, total=0.112 s; sync files=2, longest=0.001 s, average=0.001 s; distance=1 kB, estimate=4 kB

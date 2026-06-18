@@ -25,8 +25,8 @@ function GlobalStyles() {
   }, []); return null
 }
 
-export default function Landing({ go }) {
-  const [scrollT, setScrollT] = useState(0)
+export default function Landing({ go, skipHero = false }) {
+  const [scrollT, setScrollT] = useState(skipHero ? 1 : 0)
   const [loaded, setLoaded] = useState(false)
   const countdown = useCountdown()
 
@@ -57,7 +57,7 @@ export default function Landing({ go }) {
       {!loaded && <Loader onDone={() => setLoaded(true)} />}
       <Nav cd={countdown} scrollT={scrollT} />
       <div id="og-hero">
-        <Hero scrollT={scrollT} setScrollT={setScrollT} go={go} />
+        <Hero scrollT={scrollT} setScrollT={setScrollT} go={go} skipHero={skipHero} />
       </div>
       <ProblemSection />
       <HowItWorksSection />

@@ -4,9 +4,9 @@ import { HERO_VH } from '../../utils/constants'
 import { OgScene } from './HeroScene'
 import { StoryPanel, BookOverlay, ChatOverlay, StageDots, ScrollHint, HeroCTA } from './HeroOverlays'
 
-export function Hero({ scrollT, setScrollT, go }) {
+export function Hero({ scrollT, setScrollT, go, skipHero = false }) {
   const sectionRef = useRef()
-  const stepRef = useRef(0)
+  const stepRef = useRef(skipHero ? 4 : 0)
   const currentTRef = useRef(scrollT)
   const lastEventTime = useRef(0)
   const unlockedAt = useRef(0) // timestamp when scroll was unlocked (to prevent skip)
