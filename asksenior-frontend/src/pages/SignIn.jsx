@@ -27,7 +27,7 @@ export default function SignIn({ role, onDone, onBack }) {
       <BackButton onClick={onBack} />
       <div style={s.card}>
         <Logo accent={accent} />
-        <h2 style={s.h2}>Sign in to continue</h2>
+        <h2 style={s.h2}>Sign up to continue</h2>
         <p style={s.sub}>Enter your email to begin your {ROLE[role].label} registration.</p>
         <ErrorBox message={error} />
         <label style={s.label}>Email address</label>
