@@ -71,7 +71,7 @@ export function InsiderProfile({ userId, onNext, onBack, onExplore }) {
       setLoading(true); setError("");
       await api.put(`/insider/${userId}/profile`, f);
       onNext();
-    } catch (e) { setError(e.phone || e.message || "Failed"); }
+    } catch (e) { setError(e.message?.length > 100 ? "Please check your inputs and try again." : e.message || "Failed"); }
     finally { setLoading(false); }
   };
 
