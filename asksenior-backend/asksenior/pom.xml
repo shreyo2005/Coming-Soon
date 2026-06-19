@@ -76,6 +76,13 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
+		<!-- CSV Parser -->
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.9</version>
+		</dependency>
+
 		<!-- AWS SDK for S3 -->
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>

@@ -5,12 +5,24 @@ import com.asksenior.model.Course;
 import com.asksenior.repository.CollegeRepository;
 import com.asksenior.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.opencsv.CSVReader;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
+
+    private static final Logger log = LoggerFactory.getLogger(DataSeeder.class);
 
     private final CollegeRepository collegeRepo;
     private final CourseRepository courseRepo;
@@ -22,7 +34,14 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (collegeRepo.count() == 0) {
+        if (collegeRepo.count() < 100) {
+            log.info("Database has few colleges, seeding massive list...");
+            Set<String> seenNames = new HashSet<>();
+            for (College existing : collegeRepo.findAll()) {
+                seenNames.add(existing.getName().toLowerCase());
+            }
+
+            List<College> toSave = new ArrayList<>();
             List<String[]> colleges = List.of(
                     new String[]{"Indian Institute of Technology Bombay", "Mumbai", "Maharashtra"},
                     new String[]{"Indian Institute of Technology Delhi", "New Delhi", "Delhi"},
@@ -75,12 +94,65 @@ public class DataSeeder implements CommandLineRunner {
                     new String[]{"National Law School of India University", "Bengaluru", "Karnataka"},
                     new String[]{"Other / Not Listed", "", ""}
             );
+            
             for (String[] c : colleges) {
-                College col = new College();
-                col.setName(c[0]);
-                col.setCity(c[1].isEmpty() ? null : c[1]);
-                col.setState(c[2].isEmpty() ? null : c[2]);
-                collegeRepo.save(col);
+                String name = c[0].trim();
+                if (name.length() > 255) name = name.substring(0, 255);
+                if (seenNames.add(name.toLowerCase())) {
+                    College col = new College();
+                    col.setName(name);
+                    col.setCity(c[1].isEmpty() ? null : c[1]);
+                    col.setState(c[2].isEmpty() ? null : c[2]);
+                    toSave.add(col);
+                }
+            }
+
+            try {
+                ClassPathResource resource = new ClassPathResource("colleges.csv");
+                if (resource.exists()) {
+                    try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
+                         CSVReader csvReader = new CSVReader(reader)) {
+                        
+                        String[] line;
+                        boolean isHeader = true;
+                        while ((line = csvReader.readNext()) != null) {
+                            if (isHeader) {
+                                isHeader = false;
+                                continue;
+                            }
+                            if (line.length >= 7) {
+                                String state = line[1].trim();
+                                String name = line[2].trim();
+                                String city = line[5].trim();
+
+                                if (!name.isEmpty()) {
+                                    if (name.length() > 255) name = name.substring(0, 255);
+                                    if (seenNames.add(name.toLowerCase())) {
+                                        College col = new College();
+                                        col.setName(name);
+                                        col.setCity(city.isEmpty() ? null : city);
+                                        col.setState(state.isEmpty() ? null : state);
+                                        toSave.add(col);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                log.error("Failed to load colleges.csv", e);
+            }
+
+            if (!toSave.isEmpty()) {
+                log.info("Saving {} colleges in batches...", toSave.size());
+                int batchSize = 1000;
+                for (int i = 0; i < toSave.size(); i += batchSize) {
+                    int end = Math.min(i + batchSize, toSave.size());
+                    collegeRepo.saveAll(toSave.subList(i, end));
+                }
+                log.info("Finished seeding colleges.");
+            } else {
+                log.info("No new colleges to seed.");
             }
         }
 
