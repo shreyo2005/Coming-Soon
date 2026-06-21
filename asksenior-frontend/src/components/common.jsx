@@ -58,11 +58,16 @@ export function CollegePicker({ value, onChange }) {
   const [query, setQuery] = useState(value || "");
   const [open, setOpen] = useState(false);
 
-  useEffect(() => { api.get("/catalog/colleges").then(setColleges).catch(() => {}); }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      api.get(`/catalog/colleges?q=${encodeURIComponent(query.trim())}`)
+        .then(setColleges)
+        .catch(() => {});
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query]);
 
-  const filtered = colleges
-    .filter((c) => c.name.toLowerCase().includes(query.toLowerCase()))
-    .slice(0, 8);
+  const filtered = colleges.slice(0, 8);
 
   const exactMatch = colleges.some((c) => c.name.toLowerCase() === query.trim().toLowerCase());
 
