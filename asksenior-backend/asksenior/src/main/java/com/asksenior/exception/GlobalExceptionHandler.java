@@ -56,7 +56,8 @@ public class GlobalExceptionHandler {
                 msg.startsWith("No file provided") ||
                 msg.startsWith("This work email") ||
                 msg.startsWith("Unknown role") ||
-                msg.startsWith("Please wait")
+                msg.startsWith("Please wait") ||
+                msg.startsWith("Unrecognised")
         );
         if (isBusiness) {
             return errorResponse(HttpStatus.BAD_REQUEST, msg);

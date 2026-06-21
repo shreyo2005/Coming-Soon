@@ -109,3 +109,27 @@
 2026-06-18 20:34:44.041 IST [4032] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.103 s, sync=0.001 s, total=0.110 s; sync files=2, longest=0.001 s, average=0.001 s; distance=6 kB, estimate=6 kB
 2026-06-18 21:00:35.812 IST [8564] ERROR:  relation "mentor" does not exist at character 22
 2026-06-18 21:00:35.812 IST [8564] STATEMENT:  SELECT count(*) FROM mentor;
+2026-06-19 20:14:38.041 IST [11002] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.042 IST [11080] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.046 IST [10874] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.046 IST [10625] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.048 IST [10684] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.048 IST [10615] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.052 IST [10607] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.052 IST [10520] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.054 IST [4031] LOG:  received smart shutdown request
+2026-06-19 20:14:38.055 IST [4031] LOG:  background worker "logical replication launcher" (PID 4037) exited with exit code 1
+2026-06-19 20:14:38.055 IST [11050] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.052 IST [10599] FATAL:  terminating connection due to administrator command
+2026-06-19 20:14:38.074 IST [4032] LOG:  shutting down
+2026-06-19 20:14:38.076 IST [4032] LOG:  checkpoint starting: shutdown immediate
+2026-06-19 20:14:38.088 IST [4032] LOG:  checkpoint complete: wrote 1 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.006 s, sync=0.001 s, total=0.014 s; sync files=1, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=5 kB
+2026-06-19 20:14:38.103 IST [4031] LOG:  database system is shut down
+2026-06-19 20:51:39.666 IST [4626] LOG:  starting PostgreSQL 15.18 (Homebrew) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.6), 64-bit
+2026-06-19 20:51:39.668 IST [4626] LOG:  listening on IPv4 address "127.0.0.1", port 5433
+2026-06-19 20:51:39.668 IST [4626] LOG:  listening on IPv6 address "::1", port 5433
+2026-06-19 20:51:39.669 IST [4626] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5433"
+2026-06-19 20:51:39.674 IST [4629] LOG:  database system was shut down at 2026-06-19 20:14:38 IST
+2026-06-19 20:51:39.685 IST [4626] LOG:  database system is ready to accept connections
+2026-06-19 20:56:39.671 IST [4627] LOG:  checkpoint starting: time
+2026-06-19 20:58:42.715 IST [4627] LOG:  checkpoint complete: wrote 1218 buffers (7.4%); 0 WAL file(s) added, 0 removed, 1 recycled; write=123.034 s, sync=0.003 s, total=123.046 s; sync files=21, longest=0.002 s, average=0.001 s; distance=17216 kB, estimate=17216 kB

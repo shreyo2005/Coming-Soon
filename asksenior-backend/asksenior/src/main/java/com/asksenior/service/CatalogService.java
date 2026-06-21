@@ -26,8 +26,8 @@ public class CatalogService {
     }
 
     public List<College> searchColleges(String q) {
-        if (q == null || q.isBlank()) return collegeRepo.findAll();
-        return collegeRepo.findByNameContainingIgnoreCaseOrderByName(q);
+        if (q == null || q.isBlank()) return collegeRepo.findAll(org.springframework.data.domain.PageRequest.of(0, 50)).getContent();
+        return collegeRepo.findByNameContainingIgnoreCaseOrderByName(q, org.springframework.data.domain.PageRequest.of(0, 50));
     }
 
     public College addCollege(CollegeRequest req) {
