@@ -54,18 +54,18 @@ export function InsiderCollege({ userId, onNext, onBack, onExplore }) {
 
 // Step 2 — Profile + photo
 export function InsiderProfile({ userId, onNext, onBack, onExplore }) {
-  const [f, setF] = useState({ fullName: "", phone: "", bio: "", linkedInUrl: "" });
+  const [f, setF] = useState({ fullName: "", phone: "", linkedInUrl: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const set = (k) => (v) => setF((p) => ({ ...p, [k]: v }));
-  const words = f.bio.trim() ? f.bio.trim().split(/\s+/).length : 0;
+  
   const phoneOk = (p) => /^(\+91)?[6-9][0-9]{9}$/.test(p.replace(/\s/g, ""));
   const reqAst = <span style={{ color: "red" }}>*</span>;
 
   const submit = async () => {
     if (!f.fullName) return setError("Full name is required");
     if (!phoneOk(f.phone)) return setError("Enter a valid 10-digit Indian mobile number (starts 6-9)");
-    if (!f.bio) return setError("Please write a short bio");
+    
     
     try {
       setLoading(true); setError("");
@@ -89,10 +89,7 @@ export function InsiderProfile({ userId, onNext, onBack, onExplore }) {
         <input style={s.input} value={f.fullName} onChange={(e) => set("fullName")(e.target.value)} placeholder="Your full name" />
         <label style={s.label}>Phone number {reqAst}</label>
         <input style={s.input} value={f.phone} onChange={(e) => set("phone")(e.target.value.replace(/[^\d+]/g, ""))} placeholder="9876543210" type="tel" />
-        <label style={s.label}>Short bio {reqAst}</label>
-        <textarea style={{ ...s.textarea, marginBottom: "16px" }} rows={4} value={f.bio}
-          onChange={(e) => set("bio")(e.target.value)}
-          placeholder="What's your college like? What can you help students with?" />
+        
         <label style={s.label}>LinkedIn <span style={{ color: colors.textFaint, fontWeight: 400 }}>(optional)</span></label>
         <input style={s.input} value={f.linkedInUrl} onChange={(e) => set("linkedInUrl")(e.target.value)} placeholder="https://linkedin.com/in/..." />
         <button style={s.btn(accent)} onClick={submit} disabled={loading}>{loading ? "Saving..." : "Next"}</button>

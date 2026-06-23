@@ -65,11 +65,11 @@ export function MentorCompany({ userId, onNext, onBack, onExplore }) {
 
 // Step 2 — Profile + photo
 export function MentorProfile({ userId, onNext, onBack, onExplore }) {
-  const [f, setF] = useState({ fullName: "", phone: "", linkedInUrl: "", bio: "" });
+  const [f, setF] = useState({ fullName: "", phone: "", linkedInUrl: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const set = (k) => (v) => setF((p) => ({ ...p, [k]: v }));
-  const words = f.bio.trim() ? f.bio.trim().split(/\s+/).length : 0;
+  
   
   const phoneOk = (p) => /^(\+91)?[6-9][0-9]{9}$/.test(p.replace(/\s/g, ""));
   const linkedinOk = (u) => /linkedin\.com/i.test(u);
@@ -118,8 +118,7 @@ export function MentorProfile({ userId, onNext, onBack, onExplore }) {
         <label style={s.label}>LinkedIn profile {reqAst}</label>
         <input style={s.input} value={f.linkedInUrl} onChange={(e) => set("linkedInUrl")(e.target.value)} placeholder="https://linkedin.com/in/..." />
         
-        <label style={s.label}>Short bio <span style={{ color: colors.textFaint, fontWeight: 400 }}>(optional)</span></label>
-        <textarea style={{ ...s.textarea, marginBottom: "16px" }} rows={3} value={f.bio} onChange={(e) => set("bio")(e.target.value)} placeholder="How can you help students?" />
+        
         
         <button style={s.btn(accent)} onClick={submit} disabled={loading}>{loading ? "Saving..." : "Next"}</button>
         <button style={s.btnGhost} onClick={onBack}>Back</button>
