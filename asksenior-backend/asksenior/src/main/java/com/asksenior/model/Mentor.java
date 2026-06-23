@@ -25,7 +25,7 @@ public class Mentor {
     private String linkedInUrl;
     private Integer yearsOfExperience;
 
-    @Column(length = 500)
+    @Column(length = 2000)
     private String bio;
 
     // Work email — MANDATORY and UNIQUE for mentors
