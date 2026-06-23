@@ -80,7 +80,7 @@ export function MentorProfile({ userId, onNext, onBack, onExplore }) {
     if (!f.fullName) return setError("Full name is required");
     if (!phoneOk(f.phone)) return setError("Enter a valid 10-digit Indian mobile number");
     if (!linkedinOk(f.linkedInUrl)) return setError("A valid LinkedIn URL is required");
-    if (words > 150) return setError("Bio must be 150 words or less");
+    
     
     try {
       setLoading(true); setError("");
@@ -118,11 +118,8 @@ export function MentorProfile({ userId, onNext, onBack, onExplore }) {
         <label style={s.label}>LinkedIn profile {reqAst}</label>
         <input style={s.input} value={f.linkedInUrl} onChange={(e) => set("linkedInUrl")(e.target.value)} placeholder="https://linkedin.com/in/..." />
         
-        <label style={s.label}>Short bio <span style={{ color: colors.textFaint, fontWeight: 400 }}>(optional, max 150 words)</span></label>
-        <textarea style={{ ...s.textarea, marginBottom: "4px" }} rows={3} value={f.bio} onChange={(e) => set("bio")(e.target.value)} placeholder="How can you help students?" />
-        <div style={{ fontSize: "11.5px", textAlign: "right", color: words > 150 ? colors.danger : colors.textFaint, marginBottom: "16px" }}>
-          {words}/150 words
-        </div>
+        <label style={s.label}>Short bio <span style={{ color: colors.textFaint, fontWeight: 400 }}>(optional)</span></label>
+        <textarea style={{ ...s.textarea, marginBottom: "16px" }} rows={3} value={f.bio} onChange={(e) => set("bio")(e.target.value)} placeholder="How can you help students?" />
         
         <button style={s.btn(accent)} onClick={submit} disabled={loading}>{loading ? "Saving..." : "Next"}</button>
         <button style={s.btnGhost} onClick={onBack}>Back</button>

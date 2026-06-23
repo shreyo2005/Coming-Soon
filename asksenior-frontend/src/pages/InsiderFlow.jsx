@@ -66,7 +66,7 @@ export function InsiderProfile({ userId, onNext, onBack, onExplore }) {
     if (!f.fullName) return setError("Full name is required");
     if (!phoneOk(f.phone)) return setError("Enter a valid 10-digit Indian mobile number (starts 6-9)");
     if (!f.bio) return setError("Please write a short bio");
-    if (words > 150) return setError("Bio must be 150 words or less");
+    
     try {
       setLoading(true); setError("");
       await api.put(`/insider/${userId}/profile`, f);
@@ -89,13 +89,10 @@ export function InsiderProfile({ userId, onNext, onBack, onExplore }) {
         <input style={s.input} value={f.fullName} onChange={(e) => set("fullName")(e.target.value)} placeholder="Your full name" />
         <label style={s.label}>Phone number {reqAst}</label>
         <input style={s.input} value={f.phone} onChange={(e) => set("phone")(e.target.value.replace(/[^\d+]/g, ""))} placeholder="9876543210" type="tel" />
-        <label style={s.label}>Short bio <span style={{ color: colors.textFaint, fontWeight: 400 }}>(max 150 words)</span> {reqAst}</label>
-        <textarea style={{ ...s.textarea, marginBottom: "4px" }} rows={4} value={f.bio}
+        <label style={s.label}>Short bio {reqAst}</label>
+        <textarea style={{ ...s.textarea, marginBottom: "16px" }} rows={4} value={f.bio}
           onChange={(e) => set("bio")(e.target.value)}
           placeholder="What's your college like? What can you help students with?" />
-        <div style={{ fontSize: "11.5px", textAlign: "right", color: words > 150 ? colors.danger : colors.textFaint, marginBottom: "16px" }}>
-          {words}/150 words
-        </div>
         <label style={s.label}>LinkedIn <span style={{ color: colors.textFaint, fontWeight: 400 }}>(optional)</span></label>
         <input style={s.input} value={f.linkedInUrl} onChange={(e) => set("linkedInUrl")(e.target.value)} placeholder="https://linkedin.com/in/..." />
         <button style={s.btn(accent)} onClick={submit} disabled={loading}>{loading ? "Saving..." : "Next"}</button>
