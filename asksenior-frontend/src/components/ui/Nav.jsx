@@ -31,7 +31,7 @@ export function Nav({ cd, scrollT }) {
           fontFamily: 'DM Sans,sans-serif', fontSize: 14.5, fontWeight: 700,
           color: 'rgba(80,55,25,0.85)',
         }}>
-          Launching July 1 · {cd?.d || 0}d {String(cd?.h || 0).padStart(2, '0')}h away
+          Coming Soon
         </span>
       </div>
     </nav>

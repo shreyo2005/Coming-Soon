@@ -108,11 +108,8 @@ export function WaitlistSection({ cd, go }) {
   return (
     <section style={{ background: '#111', padding: '100px 24px' }}>
       <div style={{ maxWidth: 500, margin: '0 auto', textAlign: 'center' }}>
-        <p style={{ ...F.eyebrow, color: 'rgba(255,255,255,0.3)' }}>Going live in</p>
-        <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 44, alignItems: 'flex-start' }}>
-          {ticks.map((tk, i) => (<div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>{i > 0 && <div style={{ fontFamily: 'Syne,sans-serif', fontSize: 'clamp(20px,4vw,42px)', fontWeight: 300, color: 'rgba(255,255,255,0.12)', lineHeight: 1.05 }}>:</div>}<div style={{ textAlign: 'center', minWidth: 50 }}><div style={{ fontFamily: 'Syne,sans-serif', fontSize: 'clamp(24px,4.5vw,50px)', fontWeight: 800, color: tk.c, lineHeight: 1, letterSpacing: '-0.02em' }}>{String(tk.v).padStart(2, '0')}</div><div style={{ fontFamily: 'DM Sans,sans-serif', fontSize: 10, color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 4 }}>{tk.l}</div></div></div>))}
-        </div>
-        <h2 style={{ ...F.display, fontSize: 'clamp(24px,4vw,38px)', color: '#fff', marginBottom: 8 }}>Be the first in.</h2>
+        <p style={{ ...F.eyebrow, color: 'rgba(255,255,255,0.3)' }}>Coming Soon</p>
+        <h2 style={{ ...F.display, fontSize: 'clamp(24px,4vw,38px)', color: '#fff', marginBottom: 8, marginTop: 44 }}>Be the first in.</h2>
         <p style={{ ...F.body, color: 'rgba(255,255,255,0.4)', marginBottom: 28 }}>Early users get priority access on launch day.</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 9, maxWidth: 360, margin: '0 auto' }}>
           <button onClick={() => go('Learner')} style={{ background: 'linear-gradient(135deg,#059669,#D97706)', border: 'none', borderRadius: 10, padding: '13px', fontFamily: 'Syne,sans-serif', fontSize: 14, fontWeight: 700, color: '#fff', cursor: 'pointer', transition: 'opacity 0.2s', letterSpacing: '0.02em', boxShadow: '0 4px 20px rgba(5,150,105,0.3)' }}>

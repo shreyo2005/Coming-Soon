@@ -44,6 +44,7 @@ public class DataSeeder implements CommandLineRunner {
             List<College> toSave = new ArrayList<>();
             List<String[]> colleges = List.of(
                     new String[]{"Indian Institute of Technology Bombay", "Mumbai", "Maharashtra"},
+                    // (Keeping just the manual entries parsing)
                     new String[]{"Indian Institute of Technology Delhi", "New Delhi", "Delhi"},
                     new String[]{"Indian Institute of Technology Madras", "Chennai", "Tamil Nadu"},
                     new String[]{"Indian Institute of Technology Kanpur", "Kanpur", "Uttar Pradesh"},
@@ -107,6 +108,12 @@ public class DataSeeder implements CommandLineRunner {
                 }
             }
 
+            // Save manually defined colleges first
+            if (!toSave.isEmpty()) {
+                collegeRepo.saveAll(toSave);
+                toSave.clear(); // Clear memory
+            }
+
             try {
                 ClassPathResource resource = new ClassPathResource("colleges.csv");
                 if (resource.exists()) {
@@ -115,6 +122,7 @@ public class DataSeeder implements CommandLineRunner {
                         
                         String[] line;
                         boolean isHeader = true;
+                        int count = 0;
                         while ((line = csvReader.readNext()) != null) {
                             if (isHeader) {
                                 isHeader = false;
@@ -133,27 +141,30 @@ public class DataSeeder implements CommandLineRunner {
                                         col.setCity(city.isEmpty() ? null : city);
                                         col.setState(state.isEmpty() ? null : state);
                                         toSave.add(col);
+                                        count++;
                                     }
                                 }
                             }
+
+                            // Save in chunks to avoid OOM
+                            if (toSave.size() >= 1000) {
+                                collegeRepo.saveAll(toSave);
+                                toSave.clear();
+                            }
                         }
+                        
+                        // Save remaining
+                        if (!toSave.isEmpty()) {
+                            collegeRepo.saveAll(toSave);
+                            toSave.clear();
+                        }
+                        log.info("Finished seeding {} colleges from CSV.", count);
                     }
                 }
             } catch (Exception e) {
                 log.error("Failed to load colleges.csv", e);
             }
-
-            if (!toSave.isEmpty()) {
-                log.info("Saving {} colleges in batches...", toSave.size());
-                int batchSize = 1000;
-                for (int i = 0; i < toSave.size(); i += batchSize) {
-                    int end = Math.min(i + batchSize, toSave.size());
-                    collegeRepo.saveAll(toSave.subList(i, end));
-                }
-                log.info("Finished seeding colleges.");
-            } else {
-                log.info("No new colleges to seed.");
-            }
+            log.info("Finished seeding all colleges.");
         }
 
         if (courseRepo.count() == 0) {
