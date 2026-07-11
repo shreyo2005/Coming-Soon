@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
 import StudentForm from "./pages/StudentForm";
@@ -6,6 +6,7 @@ import { InsiderCollege, InsiderProfile, InsiderPayout } from "./pages/InsiderFl
 import { MentorCompany, MentorProfile, MentorPayout } from "./pages/MentorFlow";
 import Success from "./pages/Success";
 import AdminDashboard from "./pages/AdminDashboard";
+import { api } from "./api/api";
 
 export default function App() {
   const [screen, setScreen] = useState("landing");
@@ -13,6 +14,11 @@ export default function App() {
   const [userId, setUserId] = useState(null);
   const [email, setEmail] = useState("");
   const [skipHero, setSkipHero] = useState(false);
+
+  useEffect(() => {
+    // Fire a ping to wake up the backend as soon as the app loads
+    api.ping();
+  }, []);
 
   const go = (r) => {
     if (r === "admin") { setScreen("admin"); return; }
