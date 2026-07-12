@@ -2,7 +2,7 @@ const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8081/api";
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function request(method, path, body, retries = 6) {
+async function request(method, path, body, retries = 20) {
   const isFormData = body instanceof FormData;
   const opts = { method, headers: {} };
   if (!isFormData) opts.headers["Content-Type"] = "application/json";

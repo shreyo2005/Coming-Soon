@@ -4,7 +4,7 @@ export function Loader({ onDone }) {
   const [n, setN] = useState(0)
   useEffect(() => {
     const s = Date.now(), id = setInterval(() => {
-      const p = Math.min((Date.now() - s) / 2200 * 100, 100)
+      const p = Math.min((Date.now() - s) / 10000 * 100, 100)
       setN(Math.round(p)); if (p >= 100) { clearInterval(id); onDone() }
     }, 30)
     return () => clearInterval(id)

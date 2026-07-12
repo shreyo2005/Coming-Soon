@@ -138,3 +138,24 @@
 2026-06-27 13:49:20.720 IST [4627] LOG:  checkpoint complete: wrote 980 buffers (6.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=99.193 s, sync=0.013 s, total=99.215 s; sync files=346, longest=0.002 s, average=0.001 s; distance=4571 kB, estimate=15952 kB
 2026-06-27 15:07:41.662 IST [4627] LOG:  checkpoint starting: time
 2026-06-27 15:07:48.915 IST [4627] LOG:  checkpoint complete: wrote 72 buffers (0.4%); 0 WAL file(s) added, 0 removed, 0 recycled; write=7.241 s, sync=0.005 s, total=7.259 s; sync files=51, longest=0.002 s, average=0.001 s; distance=301 kB, estimate=14387 kB
+2026-07-12 14:14:45.664 IST [45331] ERROR:  relation "colleges" already exists
+2026-07-12 14:14:45.664 IST [45331] STATEMENT:  --
+	-- Name: colleges; Type: TABLE; Schema: public; Owner: postgres
+	--
+	
+	CREATE TABLE public.colleges (
+	    id bigint NOT NULL,
+	    city character varying(255),
+	    name character varying(255) NOT NULL,
+	    state character varying(255)
+	)
+2026-07-12 14:16:56.604 IST [4627] LOG:  checkpoint starting: time
+2026-07-12 14:17:00.086 IST [4627] LOG:  checkpoint complete: wrote 35 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=3.473 s, sync=0.003 s, total=3.491 s; sync files=35, longest=0.001 s, average=0.001 s; distance=159 kB, estimate=12964 kB
+2026-07-12 14:17:21.292 IST [45429] ERROR:  DROP DATABASE cannot run inside a transaction block
+2026-07-12 14:17:21.292 IST [45429] STATEMENT:  SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'askseniordb' AND pid <> pg_backend_pid(); DROP DATABASE IF EXISTS askseniordb; CREATE DATABASE askseniordb;
+2026-07-12 14:17:29.735 IST [4627] LOG:  checkpoint starting: immediate force wait
+2026-07-12 14:17:29.738 IST [4627] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=3 kB, estimate=11668 kB
+2026-07-12 14:22:29.734 IST [4627] LOG:  checkpoint starting: time
+2026-07-12 14:26:10.060 IST [4627] LOG:  checkpoint complete: wrote 2178 buffers (13.3%); 0 WAL file(s) added, 0 removed, 2 recycled; write=220.303 s, sync=0.015 s, total=220.327 s; sync files=342, longest=0.002 s, average=0.001 s; distance=19671 kB, estimate=19671 kB
+2026-07-12 14:32:29.064 IST [4627] LOG:  checkpoint starting: time
+2026-07-12 14:32:29.482 IST [4627] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.407 s, sync=0.001 s, total=0.430 s; sync files=5, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=17704 kB
