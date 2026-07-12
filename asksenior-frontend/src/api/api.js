@@ -25,9 +25,9 @@ async function request(method, path, body, retries = 20) {
       }
       return await res.json();
     } catch (error) {
-      // fetch throws a TypeError on network failure (e.g. "Failed to fetch")
-      if (error.name === "TypeError" && i < retries - 1) {
-        console.warn(`Attempt ${i + 1} failed, waking up server. Retrying in 5 seconds...`);
+      // Retry on any fetch exception (network error, CORS, blocked by extension, etc.)
+      if (i < retries - 1) {
+        console.warn(`Attempt ${i + 1} failed (Error: ${error.message}). Retrying in 5 seconds...`);
         await wait(5000);
         continue;
       }
