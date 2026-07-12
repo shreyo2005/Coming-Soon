@@ -15,8 +15,8 @@ async function request(method, path, body, retries = 20) {
     try {
       const res = await fetch(`${BASE}${path}`, opts);
       if (!res.ok) {
-        // If it's a 5xx error (like 502 Bad Gateway during wake-up), retry it
-        if (res.status >= 500 && res.status < 600 && i < retries - 1) {
+        // If it's a 5xx error (like 502 Bad Gateway during wake-up), retry only GET requests
+        if (res.status >= 500 && res.status < 600 && i < retries - 1 && method === "GET") {
           await wait(5000);
           continue;
         }
@@ -25,8 +25,8 @@ async function request(method, path, body, retries = 20) {
       }
       return await res.json();
     } catch (error) {
-      // Retry on any fetch exception (network error, CORS, blocked by extension, etc.)
-      if (i < retries - 1) {
+      // Retry on any fetch exception (network error, CORS, blocked by extension, etc.) ONLY for GET
+      if (i < retries - 1 && method === "GET") {
         console.warn(`Attempt ${i + 1} failed (Error: ${error.message}). Retrying in 5 seconds...`);
         await wait(5000);
         continue;
