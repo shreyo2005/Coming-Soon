@@ -44,7 +44,13 @@ public class MentorService {
         if (req.getWorkEmail() != null && !req.getWorkEmail().isBlank()) {
             repo.findByWorkEmail(req.getWorkEmail()).ifPresent(existing -> {
                 if (!existing.getId().equals(id)) {
-                    throw new RuntimeException("This work email is already registered by another mentor");
+                    if (Boolean.TRUE.equals(existing.getWorkEmailVerified())) {
+                        throw new RuntimeException("This work email is already registered and verified by another mentor");
+                    } else {
+                        // Steal the unverified email
+                        existing.setWorkEmail(null);
+                        repo.saveAndFlush(existing);
+                    }
                 }
             });
         }
@@ -100,6 +106,21 @@ public class MentorService {
 
     @Transactional
     public void sendOtp(Long id, MentorSendOtpRequest req) {
+        // Enforce unique work email if provided
+        if (req.getWorkEmail() != null && !req.getWorkEmail().isBlank()) {
+            repo.findByWorkEmail(req.getWorkEmail()).ifPresent(existing -> {
+                if (!existing.getId().equals(id)) {
+                    if (Boolean.TRUE.equals(existing.getWorkEmailVerified())) {
+                        throw new RuntimeException("This work email is already registered and verified by another mentor");
+                    } else {
+                        // Steal the unverified email
+                        existing.setWorkEmail(null);
+                        repo.saveAndFlush(existing);
+                    }
+                }
+            });
+        }
+
         // Rate limit: max 3 OTP sends per mentor per 60 seconds
         rateLimiter.check("mentor-otp:" + id, 3, 60);
 
@@ -123,8 +144,8 @@ public class MentorService {
             m.setOtpCode(null); m.setOtpCreatedAt(null); repo.save(m);
             throw new RuntimeException("OTP has expired. Please request a new one.");
         }
-        if (!m.getWorkEmail().equals(req.getWorkEmail()))
-            throw new RuntimeException("Email mismatch");
+        if (m.getWorkEmail() == null || !m.getWorkEmail().equals(req.getWorkEmail()))
+            throw new RuntimeException("Email mismatch. Please request a new OTP.");
         int attempts = m.getOtpAttempts() == null ? 0 : m.getOtpAttempts();
         if (attempts >= 5) {
             m.setOtpCode(null); m.setOtpCreatedAt(null); repo.save(m);

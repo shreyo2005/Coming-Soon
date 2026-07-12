@@ -57,7 +57,8 @@ public class GlobalExceptionHandler {
                 msg.startsWith("This work email") ||
                 msg.startsWith("Unknown role") ||
                 msg.startsWith("Please wait") ||
-                msg.startsWith("Unrecognised")
+                msg.startsWith("Unrecognised") ||
+                msg.startsWith("Email mismatch")
         );
         if (isBusiness) {
             return errorResponse(HttpStatus.BAD_REQUEST, msg);
