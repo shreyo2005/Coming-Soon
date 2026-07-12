@@ -41,11 +41,19 @@ public class EmailService {
                 "  <p style='font-size:11px;color:rgba(60,40,15,0.35);text-align:center;margin:0;'>© 2026 OG Senior · <a href='https://ogsenior.com' style='color:#D97706;text-decoration:none;'>ogsenior.com</a></p>" +
                 "</div>";
 
+            String textMsg = "Use the code below to complete your OG Senior registration. This code expires in 10 minutes.\n\n" +
+                             "Verification Code: " + otp + "\n\n" +
+                             "Never share this code with anyone. OG Senior will never ask for it.\n" +
+                             "If you didn't request this, you can safely ignore this email.\n\n" +
+                             "© 2026 OG Senior · ogsenior.com";
+
             Map<String, Object> requestParams = new HashMap<>();
             requestParams.put("from", "OG Senior <support@ogsenior.com>");
+            requestParams.put("reply_to", "support@ogsenior.com");
             requestParams.put("to", List.of(toEmail));
             requestParams.put("subject", "Your OG Senior Verification Code — " + otp);
             requestParams.put("html", htmlMsg);
+            requestParams.put("text", textMsg);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

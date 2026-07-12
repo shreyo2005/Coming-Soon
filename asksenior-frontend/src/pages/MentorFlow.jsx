@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "../api/api";
 import { s, colors, ROLE } from "../theme";
 import { Logo, ErrorBox, Progress, BackButton } from "../components/common";
@@ -141,6 +141,16 @@ export function MentorPayout({ userId, onDone, onBack, onExplore }) {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      timer = setInterval(() => setCountdown((c) => c - 1), 1000);
+    }
+    return () => clearInterval(timer);
+  }, [countdown]);
 
   const reqAst = <span style={{ color: "red" }}>*</span>;
   const set = (k) => (v) => setF((p) => ({ ...p, [k]: v }));
@@ -185,12 +195,16 @@ export function MentorPayout({ userId, onDone, onBack, onExplore }) {
     if (freeDomains.includes(domain)) {
       return setError("Please use your official company email address. Personal emails (like Gmail or Yahoo) are not allowed.");
     }
+    // Prevent multiple clicks
+    if (sendingOtp || (otpSent && countdown > 0)) return;
+
     try {
-      setLoading(true); setError("");
+      setSendingOtp(true); setError("");
       await api.post(`/mentor/${userId}/send-otp`, { workEmail: f.workEmail });
       setOtpSent(true);
+      setCountdown(60);
     } catch (e) { setError(e.message || "Failed to send OTP"); }
-    finally { setLoading(false); }
+    finally { setSendingOtp(false); }
   };
 
   const handleVerifyOtp = async () => {
@@ -261,10 +275,31 @@ export function MentorPayout({ userId, onDone, onBack, onExplore }) {
             <div style={{ display: "flex", gap: "8px", marginBottom: otpSent ? "12px" : "0" }}>
               <input style={{...s.input, marginBottom: 0}} value={f.workEmail} onChange={(e) => {
                 set("workEmail")(e.target.value);
-                if (otpSent) setOtpSent(false);
+                if (otpSent) {
+                  setOtpSent(false);
+                  setCountdown(0);
+                }
               }} placeholder="you@company.com" type="email" />
-              <button style={{...s.btn(accent), padding: "8px 12px", fontSize: "13px", whiteSpace: "nowrap"}} onClick={handleSendOtp} disabled={loading || (otpSent && !error)}>
-                {otpSent ? "Resend OTP" : "Send OTP"}
+              <button 
+                style={{
+                  ...s.btn(otpSent ? "#2e7d32" : accent), 
+                  padding: "8px 12px", 
+                  fontSize: "13px", 
+                  whiteSpace: "nowrap",
+                  opacity: (sendingOtp || (otpSent && countdown > 0)) ? 0.7 : 1,
+                  cursor: (sendingOtp || (otpSent && countdown > 0)) ? "not-allowed" : "pointer"
+                }} 
+                onClick={handleSendOtp} 
+                disabled={sendingOtp || (otpSent && countdown > 0)}
+              >
+                {sendingOtp ? (
+                  <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                    Sending...
+                  </span>
+                ) : otpSent ? (
+                  countdown > 0 ? `Sent ✓ (${countdown}s)` : "Resend OTP"
+                ) : "Send OTP"}
               </button>
             </div>
             
